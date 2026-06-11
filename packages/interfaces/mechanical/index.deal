@@ -1,0 +1,15 @@
+@header {
+    path:       packages/interfaces/mechanical/index.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     release
+    marking:    Unclassified
+}
+package deal.std.interfaces.mechanical;
+
+// Barrel export for the deal.std.interfaces.mechanical package.
+// Consumers: import deal.std.interfaces.mechanical.{BoltPattern, BoltPattern4x100, BoltPattern5x114_3};
+
+export bolt_patterns.{BoltPattern, BoltPattern4x100, BoltPattern5x114_3};

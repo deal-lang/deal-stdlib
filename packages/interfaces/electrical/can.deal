@@ -1,0 +1,23 @@
+@header {
+    path:       packages/interfaces/electrical/can.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     release
+    marking:    Unclassified
+}
+package deal.std.interfaces.electrical;
+
+/**
+ * Controller Area Network (CAN) bus interface.
+ * Standard vehicle and embedded systems communication backbone per ISO 11898.
+ * CAN 2.0B with configurable baud rate and node count.
+ */
+interface def CANBus {
+    @assumes: "CAN 2.0B with 500kbps data rate"
+    public (
+        attribute baudRate : Integer [1] = 500000;
+        attribute maxNodes : Integer [1] = 32;
+    )
+}

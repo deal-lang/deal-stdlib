@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lane B — deal-stdLib Content · Execution Plan</title>
+<style>
+  :root{
+    --bg:#0e1116;--panel:#161b22;--panel2:#1c232c;--ink:#e6edf3;--mut:#9aa7b4;
+    --line:#2a3340;--acc:#7ee787;--acc2:#4cc2ff;--warn:#f0b429;--err:#ff7b72;--chip:#243240;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
+  .wrap{max-width:1100px;margin:0 auto;padding:40px 28px 90px}
+  header.hero{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:30px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin:0 0 10px}
+  h1{font-size:30px;margin:0 0 12px;letter-spacing:-.4px}
+  .sub{color:var(--mut);font-size:15.5px;max-width:820px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+  .meta span{font-family:var(--mono);font-size:11px;background:var(--chip);border:1px solid var(--line);color:var(--mut);padding:5px 10px;border-radius:6px}
+  h2{font-size:20px;margin:42px 0 6px;letter-spacing:-.2px;display:flex;align-items:center;gap:10px}
+  h2 .num{font-family:var(--mono);font-size:12px;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:2px 8px;background:var(--chip)}
+  h3{font-size:15px;margin:22px 0 6px}
+  p{margin:9px 0}.lead{color:var(--mut);max-width:860px}
+  code{font-family:var(--mono);font-size:.86em;background:var(--chip);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:#cfe8ff}
+  pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5;color:#d6e2ee}
+  pre .k{color:#ff9ed8}.pre .c{color:#7d8a98}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+  th,td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
+  tr:last-child td{border-bottom:none}
+  td.mono,th.mono{font-family:var(--mono);font-size:12px;text-align:center}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .plan{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:10px;padding:18px 20px;margin:14px 0}
+  .plan.first{border-left-color:var(--warn)}
+  .plan h4{margin:0 0 4px;font-size:15.5px;font-family:var(--mono);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .plan h4 .id{color:var(--acc)}
+  .plan .tline{color:var(--mut);font-size:13px;margin:2px 0 10px}
+  .tag{font-family:var(--mono);font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:1px 7px}
+  .tag.go{color:var(--acc);border-color:#2f5d3a;background:#14241a}
+  .gate{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:8px 12px;margin-top:11px;font-size:12.5px}
+  .gate b{color:var(--acc)}
+  ul.tight{margin:7px 0;padding-left:20px}ul.tight li{margin:4px 0}
+  .note{font-size:13px;color:var(--mut);border-left:2px solid var(--acc);padding-left:13px;margin:13px 0}
+  .pill{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:1px 8px;border-radius:20px;border:1px solid var(--line)}
+  .files{font-family:var(--mono);font-size:12px;color:var(--mut)}
+  .foot{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+  .flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:14px 0}
+  .step{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:13px 15px}
+  .step .h{font-family:var(--mono);font-size:13px;color:var(--acc);font-weight:700}
+  .step.first .h{color:var(--warn)}
+  .step .d{font-size:12.5px;color:var(--mut);margin-top:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="kicker">DEAL · Numeric Model Track · Lane B</p>
+  <h1>Lane B — Physical-Quantity Stdlib Content</h1>
+  <p class="sub">The execution plan to start the content half of the ADR numeric model: the ISO 80000 quantity catalog, CODATA 2022 constants, the NIST SP 811 conversion layer, and licensing attribution. No compiler change — pure <code>.deal</code> authoring, verified by the existing <code>deal parse</code> / <code>deal check</code>. Runs fully in parallel with mainline work.</p>
+  <div class="meta">
+    <span>PLANS: N-09 · N-07 · N-08</span>
+    <span>BLOCKING DEPS: none</span>
+    <span>ENCODING: Option A (locked)</span>
+    <span>GSD FILES: deal-stdlib/.planning/phases/0N-numeric-model/</span>
+  </div>
+</header>
+
+<!-- DECISION -->
+<h2><span class="num">§1</span> Dependency decision — N-07 is unblocked</h2>
+<div class="panel">
+  <p style="margin-top:0"><strong>Split N-07; move Torque≠Energy <em>enforcement</em> out of Lane B.</strong></p>
+  <ul class="tight">
+    <li>Check #7 compares only the 7-exponent vector, so the compiler already treats Torque and Energy (both <code>M·L²·T⁻²</code>) as identical. <strong>Declaring</strong> them as distinct named dimensions is pure content that parses + checks today.</li>
+    <li><strong>Enforcing</strong> non-interchange needs a named-type tie-break in <code>sema.zig</code> — a Lane A feature gated on N-00③, reclassified out of Lane B.</li>
+    <li>Common products (<code>Voltage*Current=Power</code>) already resolve via vector addition in <code>checkBinaryDimension</code> — <strong>no dimension-equation table needed</strong>.</li>
+  </ul>
+  <p class="note">Net: Lane B has <strong>zero blocking dependencies</strong> and starts today. N-07 declares same-vector pairs distinctly and tags each with <code>@same_vector_note</code> so the later Lane A pass has an exact enforcement list.</p>
+</div>
+
+<!-- SEQUENCING -->
+<h2><span class="num">§2</span> Sequencing</h2>
+<div class="flow">
+  <div class="step first"><div class="h">N-09 · first</div><div class="d">NOTICE.md + per-file header template. ~½ day. Sequenced first only so sourced files are born compliant.</div></div>
+  <div class="step"><div class="h">N-07 · parallel</div><div class="d">Quantity catalog: ~80 dimensions, derived-unit constructors, Dimensionless, percent re-home.</div></div>
+  <div class="step"><div class="h">N-08 · parallel</div><div class="d">CODATA 2022 constants package + completed SP 811 conversions + SL-7 policy.</div></div>
+</div>
+<p class="lead">N-07 and N-08 are mutually independent and can be worked by different people or in any order once N-09's header template exists.</p>
+
+<!-- FILE LAYOUT -->
+<h2><span class="num">§3</span> Target file layout</h2>
+<pre>deal-stdlib/
+├── NOTICE.md                          <span style="color:#7ee787">← N-09 (new)</span>
+├── packages/
+│   ├── units/
+│   │   ├── dimensions.deal            <span style="color:#7ee787">← N-07: 15 → ~80 dims</span>
+│   │   ├── dimensionless.deal         <span style="color:#7ee787">← N-07 (new): Dimensionless, Angle, SolidAngle, percent</span>
+│   │   ├── si.deal                    <span style="color:#7ee787">← N-07: percent removed</span>
+│   │   ├── si_catalog.deal            <span style="color:#7ee787">← N-07 (new): Pa, Hz, F, H, T, Wb, S, …</span>
+│   │   ├── imperial.deal              <span style="color:#7ee787">← N-08: complete SP 811</span>
+│   │   ├── conversions.deal           <span style="color:#7ee787">← N-08 (new): to_&lt;SI&gt;() forms, all domains</span>
+│   │   └── index.deal                   <span style="color:#7ee787">← N-07/08: barrel export</span>
+│   └── constants/                     <span style="color:#7ee787">← N-08 (new package)</span>
+│       ├── codata.deal                <span style="color:#7ee787">  CODATA 2022 constants</span>
+│       └── index.deal
+└── deal.toml                          <span style="color:#7ee787">← N-08: confirm packages/* picks up constants/</span></pre>
+
+<!-- ENCODING -->
+<h2><span class="num">§4</span> Encoding (locked — Option A)</h2>
+<pre><span style="color:#7d8a98">// dimension def: all seven si_M..si_J exponents, no &lt;&lt;specializes&gt;&gt;</span>
+attribute def Pressure {
+    attribute si_M  : Integer = 1;   attribute si_L  : Integer = -1;
+    attribute si_T  : Integer = -2;  attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;   attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+<span style="color:#7d8a98">// unit def: &lt;&lt;specializes&gt;&gt; a dimension + si_factor</span>
+attribute def Pa  &lt;&lt;specializes&gt;&gt; Pressure { attribute si_factor : Real = 1.0; }
+attribute def kPa &lt;&lt;specializes&gt;&gt; Pressure { attribute si_factor : Real = 1000.0; }
+<span style="color:#7d8a98">// same-vector name kept distinct, flagged for Lane A enforcement</span>
+<span style="color:#7d8a98">// @same_vector_note: distinct-from Energy — Lane A enforcement (N-00 ③)</span>
+attribute def Torque { <span style="color:#7d8a98">/* M=1 L=2 T=-2, rest 0 */</span> }</pre>
+
+<!-- PLANS -->
+<h2><span class="num">§5</span> The three plans</h2>
+
+<div class="plan first">
+  <h4><span class="id">N-09</span> NOTICE &amp; attribution <span class="tag go">no deps · do first</span> <span class="tag">ADR-Cf#6</span></h4>
+  <p class="tline">Create the root <code>NOTICE.md</code> (Modelica BSD-3 + uom-rs Apache-2.0 + NIST public-domain, verbatim from the ADR) and a <code>HEADER-TEMPLATE.txt</code> that N-07/N-08 paste into each sourced file.</p>
+  <p class="files">→ NOTICE.md · packages/units/HEADER-TEMPLATE.txt</p>
+  <div class="gate"><b>Gate:</b> <code>NOTICE.md</code> contains all three attributions (grep <code>Modelica Association</code>, <code>iliekturtles</code>, <code>CODATA 2022</code>); template ready for downstream.</div>
+</div>
+
+<div class="plan">
+  <h4><span class="id">N-07</span> Catalog expansion <span class="tag go">unblocked</span> <span class="tag">ADR-Cf#1 (content)</span></h4>
+  <p class="tline">Grow 15 → ~80 dimensions with physics-verified exponent vectors; add unit constructors; add <code>Dimensionless</code> and move <code>percent</code> off the <code>Mass</code> hack; declare same-vector pairs distinctly + flag them.</p>
+  <p class="files">→ dimensions.deal · dimensionless.deal · si_catalog.deal · si.deal · index.deal</p>
+  <ul class="tight">
+    <li>The plan file ships a <strong>verified [M,L,T,I,TH,N,J] vector table</strong> for ~35 core derived quantities (Area, Pressure, Torque, Frequency, Capacitance, Inductance, MagFluxDensity, Dose, …) — the authoring source of truth.</li>
+    <li>Extend to the full 270+ by mechanically translating remaining <code>Modelica.Units.SI</code> names with the same encoding.</li>
+    <li>Prefix policy: ship the prefixes engineers actually use per quantity, not every cross-product.</li>
+  </ul>
+  <div class="gate"><b>Gate:</b> <code>UNITS_PARSE_OK</code>; probe consumer with <code>kPa</code>/<code>MHz</code>/<code>uF</code> checks clean, a <code>Pressure = Hz(1)</code> mismatch emits <code>E2500</code>; <code>percent</code> is <code>Dimensionless</code>; every same-vector dim carries <code>@same_vector_note</code>.</div>
+</div>
+
+<div class="plan">
+  <h4><span class="id">N-08</span> Constants &amp; conversions <span class="tag go">unblocked · parallel to N-07</span></h4>
+  <p class="tline">New <code>deal.std.constants</code> package (CODATA 2022: c, h, k_B, N_A, e, G, g_0, ε₀, µ₀, R, σ, …); complete imperial to SP 811 (psi, atm, gal, nmi, acre, degR, …); relocate the <code>to_&lt;SI&gt;()</code> converters into <code>conversions.deal</code> and fill missing domains; document SL-7.</p>
+  <p class="files">→ constants/codata.deal · constants/index.deal · conversions.deal · imperial.deal · index.deal · deal.toml</p>
+  <div class="gate"><b>Gate:</b> <code>STDLIB_PARSE_OK</code>; probe <code>import deal.std.constants.{c, k_B};</code> + <code>to_Pa(psi(100))</code> checks clean; exact constants exact, non-exact carry a <code>precision:</code> note (upgraded to <code>± e-N</code> once Lane A N-01 lands); SL-7 documented.</div>
+</div>
+
+<!-- VECTOR TABLE PREVIEW -->
+<h2><span class="num">§6</span> Verified exponent vectors (N-07 authoring source)</h2>
+<p class="lead">Order <code>[M, L, T, I, TH, N, J]</code>. Full table is in <code>0N-07-PLAN.md</code>; a representative slice:</p>
+<table>
+  <thead><tr><th>Quantity</th><th class="mono">M</th><th class="mono">L</th><th class="mono">T</th><th class="mono">I</th><th class="mono">Θ</th><th class="mono">N</th><th class="mono">J</th><th>SI unit</th><th>same-vector</th></tr></thead>
+  <tbody>
+    <tr><td>Pressure / Stress</td><td class="mono">1</td><td class="mono">-1</td><td class="mono">-2</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>Pa</td><td>each other</td></tr>
+    <tr><td>Torque</td><td class="mono">1</td><td class="mono">2</td><td class="mono">-2</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>N·m</td><td>Energy</td></tr>
+    <tr><td>Frequency</td><td class="mono">0</td><td class="mono">0</td><td class="mono">-1</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>Hz</td><td>AngularVel., Bq</td></tr>
+    <tr><td>Capacitance</td><td class="mono">-1</td><td class="mono">-2</td><td class="mono">4</td><td class="mono">2</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>F</td><td></td></tr>
+    <tr><td>Inductance</td><td class="mono">1</td><td class="mono">2</td><td class="mono">-2</td><td class="mono">-2</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>H</td><td></td></tr>
+    <tr><td>MagneticFluxDensity</td><td class="mono">1</td><td class="mono">0</td><td class="mono">-2</td><td class="mono">-1</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>T</td><td></td></tr>
+    <tr><td>ThermalConductivity</td><td class="mono">1</td><td class="mono">1</td><td class="mono">-3</td><td class="mono">0</td><td class="mono">-1</td><td class="mono">0</td><td class="mono">0</td><td>W/(m·K)</td><td></td></tr>
+    <tr><td>MolarMass</td><td class="mono">1</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">-1</td><td class="mono">0</td><td>kg/mol</td><td></td></tr>
+    <tr><td>Illuminance</td><td class="mono">0</td><td class="mono">-2</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">1</td><td>lx</td><td></td></tr>
+    <tr><td>Dimensionless / Angle</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>— / rad</td><td>each other</td></tr>
+  </tbody>
+</table>
+
+<!-- VERIFY -->
+<h2><span class="num">§7</span> Verification (oracle = the parser)</h2>
+<pre>cd /Users/dunnock/projects/deal-lang/deal
+for f in ../deal-stdlib/packages/units/*.deal ../deal-stdlib/packages/constants/*.deal; do
+  cargo run -q -p deal -- parse "$f" &gt;/dev/null || { echo "PARSE FAIL: $f"; exit 1; }
+done &amp;&amp; echo STDLIB_PARSE_OK</pre>
+<p class="lead">Then a consumer-model <code>deal check</code>: a dimensionally-correct expression exits 0; a deliberate mismatch emits <code>E2500</code>. This mirrors the Phase 4 Plan 04-03 verification exactly.</p>
+
+<div class="foot">
+  <p>GSD plan files: <code>deal-stdlib/.planning/phases/0N-numeric-model/</code> — <code>0N-LANE-B-OVERVIEW.md</code>, <code>0N-09-PLAN.md</code>, <code>0N-07-PLAN.md</code>, <code>0N-08-PLAN.md</code>. Encoding contract: <code>ADR-phase-4-dimension-metadata-syntax.md</code>. Source: <code>ADR-deal-stdlib-numeric-model.md</code>. Exponent vectors are physics-verified against ISO 80000-1; cross-check MSL-extended additions before commit.</p>
+</div>
+
+</div>
+</body>
+</html>

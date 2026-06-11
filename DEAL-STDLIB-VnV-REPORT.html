@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>deal-stdLib Lane B — Verification &amp; Validation Report</title>
+<style>
+  :root{
+    --bg:#0e1116;--panel:#161b22;--panel2:#1c232c;--ink:#e6edf3;--mut:#9aa7b4;
+    --line:#2a3340;--acc:#7ee787;--acc2:#4cc2ff;--warn:#f0b429;--err:#ff7b72;--chip:#243240;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding:40px 28px 90px}
+  header.hero{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:30px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin:0 0 10px}
+  h1{font-size:30px;margin:0 0 12px;letter-spacing:-.4px}
+  .sub{color:var(--mut);font-size:15.5px;max-width:860px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+  .meta span{font-family:var(--mono);font-size:11px;background:var(--chip);border:1px solid var(--line);color:var(--mut);padding:5px 10px;border-radius:6px}
+  h2{font-size:20px;margin:42px 0 6px;letter-spacing:-.2px;display:flex;align-items:center;gap:10px}
+  h2 .num{font-family:var(--mono);font-size:12px;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:2px 8px;background:var(--chip)}
+  h3{font-size:15px;margin:22px 0 6px;color:var(--ink)}
+  p{margin:9px 0}.lead{color:var(--mut);max-width:880px}
+  code{font-family:var(--mono);font-size:.85em;background:var(--chip);border:1px solid var(--line);padding:1px 6px;border-radius:5px;color:#cfe8ff}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.5px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+  tr:last-child td{border-bottom:none}
+  td.m,th.m{font-family:var(--mono);font-size:11.5px}
+  .ok{color:var(--acc);font-weight:700}
+  .note{color:var(--warn);font-weight:700}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:16px 0}
+  .verdict{background:linear-gradient(180deg,#14241a,#161b22);border:1px solid #2f5d3a;border-radius:12px;padding:18px 22px;margin:16px 0}
+  .verdict b{color:var(--acc)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:1px 8px;border-radius:20px;border:1px solid var(--line)}
+  .pill.pass{color:var(--acc);border-color:#2f5d3a;background:#14241a}
+  .pill.adj{color:var(--warn);border-color:#5d4d2f;background:#241f16}
+  ul.tight{margin:8px 0;padding-left:20px}ul.tight li{margin:4px 0}
+  a{color:var(--acc2);text-decoration:none}
+  .src{font-size:12.5px;color:var(--mut)}
+  .foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+  .legend{font-size:12px;color:var(--mut);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="kicker">DEAL · Numeric Model · Lane B</p>
+  <h1>Verification &amp; Validation Report — Catalog, Constants &amp; Conversions</h1>
+  <p class="sub">Every numeric value authored in N-07 (catalog) and N-08 (constants + conversions) checked against the <strong>primary sources</strong> — NIST CODATA 2022 complete listing and NIST SP 811 / legal-definition factors — fetched live, not recalled from model weights.</p>
+  <div class="meta">
+    <span>DATE: 2026-06-08</span>
+    <span>SCOPE: codata.deal · dimensions.deal · si_catalog.deal · imperial.deal · conversions.deal</span>
+    <span>METHOD: live source fetch + cross-derivation</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <p style="margin:0 0 6px"><b>Verdict: PASS.</b> All 14 physical constants match NIST CODATA 2022 exactly; all 5 uncertainty notes are accurate; the four constant-support dimensions and the derived-quantity dimension vectors are confirmed against NIST coherent-derived-unit strings; all conversion factors are correct to the precision written. <b>One traceability clarification applied</b> (acre → international, not US-survey). No numeric errors found.</p>
+</div>
+
+<!-- METHOD -->
+<h2><span class="num">§1</span> Sources accessed</h2>
+<table>
+  <thead><tr><th>Source</th><th>What it validated</th><th>Fetch</th></tr></thead>
+  <tbody>
+    <tr><td class="m">physics.nist.gov/cuu/Constants/Table/allascii.txt</td><td>CODATA 2022 complete listing — all 14 constants + uncertainties + unit strings</td><td><span class="ok">full text ✓</span></td></tr>
+    <tr><td class="m">en.wikipedia.org/wiki/Acre, /wiki/Gallon (cite NIST/legal defs)</td><td>international vs survey acre; US gallon exact = 231 in³</td><td><span class="ok">✓</span></td></tr>
+    <tr><td class="m">nist.gov SP 811 Appendix B.8/B.9</td><td>conversion-factor index (page JS-rendered; values cross-derived from exact definitions + corroborated)</td><td><span class="note">indirect</span></td></tr>
+  </tbody>
+</table>
+<p class="legend">SP 811's Appendix B pages render client-side and returned no table to the fetcher; the imperial factors below were instead confirmed by exact definitional derivation (e.g. psi = lbf/in² from the exact international foot and avoirdupois pound) and corroborated against NIST CODATA (standard atmosphere, standard gravity) and legal definitions.</p>
+
+<!-- CONSTANTS -->
+<h2><span class="num">§2</span> Physical constants — <code>codata.deal</code> <span class="pill pass">14/14 EXACT MATCH</span></h2>
+<p class="lead">Each value compared character-for-character against the NIST CODATA 2022 listing.</p>
+<table>
+  <thead><tr><th>Const</th><th class="m">codata.deal value</th><th class="m">NIST CODATA 2022</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>c — speed of light</td><td class="m">299792458.0</td><td class="m">299 792 458 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>h — Planck</td><td class="m">6.62607015e-34</td><td class="m">6.626 070 15e-34 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>hbar — reduced Planck</td><td class="m">1.054571817e-34</td><td class="m">1.054 571 817…e-34</td><td class="ok">✓</td></tr>
+    <tr><td>k_B — Boltzmann</td><td class="m">1.380649e-23</td><td class="m">1.380 649e-23 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>N_A — Avogadro</td><td class="m">6.02214076e23</td><td class="m">6.022 140 76e23 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>q_e — elementary charge</td><td class="m">1.602176634e-19</td><td class="m">1.602 176 634e-19 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>g_0 — standard gravity</td><td class="m">9.80665</td><td class="m">9.806 65 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>R — molar gas constant</td><td class="m">8.314462618</td><td class="m">8.314 462 618… (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>sigma — Stefan-Boltzmann</td><td class="m">5.670374419e-8</td><td class="m">5.670 374 419…e-8 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>m_e — electron mass</td><td class="m">9.1093837139e-31</td><td class="m">9.109 383 7139e-31</td><td class="ok">✓</td></tr>
+    <tr><td>m_p — proton mass</td><td class="m">1.67262192595e-27</td><td class="m">1.672 621 925 95e-27</td><td class="ok">✓</td></tr>
+    <tr><td>G — gravitation</td><td class="m">6.67430e-11</td><td class="m">6.674 30e-11</td><td class="ok">✓</td></tr>
+    <tr><td>eps_0 — vac. permittivity</td><td class="m">8.8541878188e-12</td><td class="m">8.854 187 8188e-12</td><td class="ok">✓</td></tr>
+    <tr><td>mu_0 — vac. permeability</td><td class="m">1.25663706127e-6</td><td class="m">1.256 637 061 27e-6</td><td class="ok">✓</td></tr>
+  </tbody>
+</table>
+
+<h3>Uncertainty notes — all 5 accurate</h3>
+<table>
+  <thead><tr><th>Const</th><th class="m">note in file</th><th class="m">NIST std uncertainty → relative</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>m_e</td><td class="m">± 3.1e-10</td><td class="m">0.0000000028e-31 → 3.07e-10</td><td class="ok">✓</td></tr>
+    <tr><td>m_p</td><td class="m">± 3.1e-10</td><td class="m">0.00000000052e-27 → 3.11e-10</td><td class="ok">✓</td></tr>
+    <tr><td>G</td><td class="m">± 2.2e-5</td><td class="m">0.00015e-11 → 2.25e-5</td><td class="ok">✓</td></tr>
+    <tr><td>eps_0</td><td class="m">± 1.6e-10</td><td class="m">0.0000000014e-12 → 1.58e-10</td><td class="ok">✓</td></tr>
+    <tr><td>mu_0</td><td class="m">± 1.6e-10</td><td class="m">0.00000000020e-6 → 1.59e-10</td><td class="ok">✓</td></tr>
+  </tbody>
+</table>
+
+<!-- DIMENSIONS -->
+<h2><span class="num">§3</span> Dimension vectors <span class="pill pass">CONFIRMED</span></h2>
+<p class="lead">Derived-dimension <code>[M,L,T,I,Θ,N,J]</code> vectors cross-checked against the SI coherent-derived-unit strings in the NIST CODATA listing (the <code>Unit</code> column) and exact unit algebra.</p>
+<table>
+  <thead><tr><th>Dimension</th><th class="m">vector in file</th><th class="m">NIST/SI unit string</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>Pressure (Pa)</td><td class="m">[1,-1,-2,0,0,0,0]</td><td class="m">std atmosphere → Pa = kg·m⁻¹·s⁻²</td><td class="ok">✓</td></tr>
+    <tr><td>Capacitance (F)</td><td class="m">[-1,-2,4,2,0,0,0]</td><td class="m">F·m⁻¹ permittivity ÷ m⁻¹</td><td class="ok">✓</td></tr>
+    <tr><td>Inductance (H)</td><td class="m">[1,2,-2,-2,0,0,0]</td><td class="m">Wb·A⁻¹</td><td class="ok">✓</td></tr>
+    <tr><td>MagneticFlux (Wb)</td><td class="m">[1,2,-2,-1,0,0,0]</td><td class="m">mag flux quantum (Wb)</td><td class="ok">✓</td></tr>
+    <tr><td>MagFluxDensity (T)</td><td class="m">[1,0,-2,-1,0,0,0]</td><td class="m">atomic unit of mag flux density (T)</td><td class="ok">✓</td></tr>
+    <tr><td>Conductance (S)</td><td class="m">[-1,-2,3,2,0,0,0]</td><td class="m">conductance quantum (S)</td><td class="ok">✓</td></tr>
+    <tr><td>StefanBoltzmannDim</td><td class="m">[1,0,-3,0,-4,0,0]</td><td class="m">W·m⁻²·K⁻⁴</td><td class="ok">✓</td></tr>
+    <tr><td>MolarGasDim</td><td class="m">[1,2,-2,0,-1,-1,0]</td><td class="m">J·mol⁻¹·K⁻¹</td><td class="ok">✓</td></tr>
+    <tr><td>GravConstantDim</td><td class="m">[-1,3,-2,0,0,0,0]</td><td class="m">m³·kg⁻¹·s⁻²</td><td class="ok">✓</td></tr>
+    <tr><td>PerAmount</td><td class="m">[0,0,0,0,0,-1,0]</td><td class="m">mol⁻¹ (Avogadro)</td><td class="ok">✓</td></tr>
+    <tr><td>AbsorbedDose / DoseEquiv (Gy/Sv)</td><td class="m">[0,2,-2,0,0,0,0]</td><td class="m">J·kg⁻¹ = m²·s⁻²</td><td class="ok">✓</td></tr>
+    <tr><td>CatalyticActivity (kat)</td><td class="m">[0,0,-1,0,0,1,0]</td><td class="m">mol·s⁻¹</td><td class="ok">✓</td></tr>
+    <tr><td>Illuminance (lx)</td><td class="m">[0,-2,0,0,0,0,1]</td><td class="m">cd·sr·m⁻² → cd·m⁻²</td><td class="ok">✓</td></tr>
+  </tbody>
+</table>
+
+<!-- CONVERSIONS -->
+<h2><span class="num">§4</span> Conversion factors <span class="pill pass">ALL CORRECT</span> <span class="pill adj">1 clarification</span></h2>
+<p class="lead">N-08 imperial additions + non-SI <code>si_catalog</code> factors, validated by exact definition (international foot 0.3048 m, avoirdupois pound 0.45359237 kg) and corroborated by NIST/legal sources.</p>
+<table>
+  <thead><tr><th>Unit</th><th class="m">factor in file</th><th class="m">authoritative</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>nmi — nautical mile</td><td class="m">1852.0</td><td class="m">1852 (exact, intl)</td><td class="ok">✓</td></tr>
+    <tr><td>psi</td><td class="m">6894.76</td><td class="m">6894.757 (lbf/in²)</td><td class="ok">✓ 6 s.f.</td></tr>
+    <tr><td>ksi</td><td class="m">6894760.0</td><td class="m">6.894757e6</td><td class="ok">✓ 6 s.f.</td></tr>
+    <tr><td>inHg (conventional)</td><td class="m">3386.39</td><td class="m">3386.389</td><td class="ok">✓</td></tr>
+    <tr><td>atm</td><td class="m">101325.0</td><td class="m">101 325 (exact, NIST)</td><td class="ok">✓</td></tr>
+    <tr><td>acre</td><td class="m">4046.8564224</td><td class="m">intl acre 4046.8564224 (exact)</td><td class="note">✓ adjusted</td></tr>
+    <tr><td>gal_us</td><td class="m">0.00378541</td><td class="m">0.003785411784 (231 in³ exact)</td><td class="ok">✓ 6 s.f.</td></tr>
+    <tr><td>qt / pt / floz</td><td class="m">9.46353e-4 / 4.73176e-4 / 2.95735e-5</td><td class="m">gal ÷ 4 / 8 / 128</td><td class="ok">✓</td></tr>
+    <tr><td>ftlb</td><td class="m">1.35582</td><td class="m">1.355818 (ft·lbf)</td><td class="ok">✓</td></tr>
+    <tr><td>degR</td><td class="m">0.55556</td><td class="m">5/9 = 0.55556</td><td class="ok">✓</td></tr>
+    <tr><td>bar / mbar</td><td class="m">1e5 / 100</td><td class="m">1e5 (exact) / 1e2</td><td class="ok">✓</td></tr>
+    <tr><td>gauss</td><td class="m">1e-4</td><td class="m">1e-4 (exact)</td><td class="ok">✓</td></tr>
+    <tr><td>Ci — curie</td><td class="m">3.7e10</td><td class="m">3.7e10 (exact, def)</td><td class="ok">✓</td></tr>
+    <tr><td>rpm</td><td class="m">0.1047198</td><td class="m">2π/60 = 0.10471976</td><td class="ok">✓</td></tr>
+    <tr><td>deg (arc)</td><td class="m">0.0174533</td><td class="m">π/180 = 0.01745329</td><td class="ok">✓</td></tr>
+    <tr><td>g_accel</td><td class="m">9.80665</td><td class="m">9.806 65 (exact, NIST)</td><td class="ok">✓</td></tr>
+  </tbody>
+</table>
+
+<div class="panel">
+  <h3 style="margin-top:0">The one change: <code>acre</code></h3>
+  <p style="margin:6px 0">The file originally carried <code>4046.86</code>, which rounds the <em>international</em> acre. The US <em>survey</em> acre is <code>4046.873 m²</code> — a ~4 ppm difference. Updated to the exact international value <code>4046.8564224</code> with a doc comment recording the distinction (international has been the US standard since the 2023 survey-foot deprecation). All other factors were already correct to the precision written; no other edits.</p>
+</div>
+
+<!-- OBSERVATIONS -->
+<h2><span class="num">§5</span> Observations (no action required)</h2>
+<ul class="tight">
+  <li><strong>Pre-existing Phase-4 imperial precision.</strong> <code>lb = 0.453592</code> and <code>oz = 0.028350</code> (authored in Phase 4) round the exact avoirdupois pound <code>0.45359237 kg</code> at 6 s.f. Correct as written; could be tightened to full precision in a future pass, but these are baseline values outside Lane B's scope.</li>
+  <li><strong>BTU flavor.</strong> <code>BTU = 1055.06</code> (Phase 4) matches the IT British thermal unit (1055.056 J). The thermochemical BTU (1054.35 J) differs — the IT value is the conventional engineering choice and is correctly used.</li>
+  <li><strong>Constant call-form.</strong> Encoding constants as <code>c(1)</code> unit-style defs is a representation choice (parse-safety), not a numeric concern — values are exact regardless of surface form.</li>
+</ul>
+
+<div class="foot">
+  <p><strong>Scope:</strong> this V&amp;V covers numeric correctness against primary sources. Syntactic correctness was separately confirmed by <code>STDLIB_PARSE_OK</code> on the real toolchain (2026-06-08). Dimensional <em>enforcement</em> (E2500) remains gated on N-10.</p>
+  <p class="src"><strong>Sources:</strong>
+    <a href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt">NIST CODATA 2022 complete listing</a> ·
+    <a href="https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors">NIST SP 811 Appendix B</a> ·
+    <a href="https://en.wikipedia.org/wiki/Acre">Acre (international vs US survey)</a> ·
+    <a href="https://en.wikipedia.org/wiki/Gallon">US gallon (231 in³ exact)</a>
+  </p>
+</div>
+
+</div>
+</body>
+</html>

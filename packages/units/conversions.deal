@@ -1,0 +1,72 @@
+@header {
+    path:       packages/units/conversions.deal
+    schema:     deal/0.1
+    created:    2026-06-08T00:00:00Z by "David Dunnock"
+    modified:   2026-06-08T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+// ─────────────────────────────────────────────────────────────────────────
+//  Unit conversion factors: NIST SP 811 (2008), public domain.
+//  See deal-stdlib/NOTICE.md.
+// ─────────────────────────────────────────────────────────────────────────
+package deal.std.units;
+
+import .dimensions.{Mass, Length, Time, Force, Energy, Power, Temperature, Speed,
+                    Pressure, Area, Volume, Frequency};
+
+// Explicit conversion call forms (D-57). Relocated here from imperial.deal in N-08
+// and extended to the derived-quantity domains added in N-07.
+//
+// Usage: to_<target_SI>(<source_unit_expr>) normalizes a quantity to SI-base scale.
+//   to_kg(lb(3300))   — pounds  → kg-scale Mass
+//   to_Pa(psi(100))   — psi     → Pa-scale Pressure
+//   to_m3(gal_us(50)) — gallons → m^3-scale Volume
+//
+// Each converter is a unit def with si_factor = 1.0 specializing the target
+// dimension; the sema reads the source expression's factor to scale the value.
+//
+// SL-7: SI units are canonical and (per SL-3) always available. Imperial units and
+// these converters require an explicit import, e.g.
+//   import deal.std.units.{lb, ft, to_kg, to_m};
+
+// ── Base-quantity converters (relocated from imperial.deal) ───────────────
+
+/** to_kg — convert a Mass quantity to kg scale. Usage: to_kg(lb(3300)) */
+attribute def to_kg <<specializes>> Mass { attribute si_factor : Real = 1.0; }
+
+/** to_m — convert a Length quantity to metre scale. Usage: to_m(ft(1000)) */
+attribute def to_m <<specializes>> Length { attribute si_factor : Real = 1.0; }
+
+/** to_s — convert a Time quantity to second scale. Usage: to_s(min(30)) */
+attribute def to_s <<specializes>> Time { attribute si_factor : Real = 1.0; }
+
+/** to_N — convert a Force quantity to newton scale. Usage: to_N(lbf(100)) */
+attribute def to_N <<specializes>> Force { attribute si_factor : Real = 1.0; }
+
+/** to_J — convert an Energy quantity to joule scale. Usage: to_J(BTU(100)) */
+attribute def to_J <<specializes>> Energy { attribute si_factor : Real = 1.0; }
+
+/** to_W — convert a Power quantity to watt scale. Usage: to_W(hp(200)) */
+attribute def to_W <<specializes>> Power { attribute si_factor : Real = 1.0; }
+
+/** to_K — convert a Temperature quantity to kelvin scale. Usage: to_K(degF(32)) */
+attribute def to_K <<specializes>> Temperature { attribute si_factor : Real = 1.0; }
+
+/** to_m_per_s — convert a Speed quantity to m/s scale. Usage: to_m_per_s(mph(60)) */
+attribute def to_m_per_s <<specializes>> Speed { attribute si_factor : Real = 1.0; }
+
+// ── Derived-quantity converters (N-08 additions) ──────────────────────────
+
+/** to_Pa — convert a Pressure quantity to pascal scale. Usage: to_Pa(psi(100)) */
+attribute def to_Pa <<specializes>> Pressure { attribute si_factor : Real = 1.0; }
+
+/** to_m2 — convert an Area quantity to m^2 scale. Usage: to_m2(acre(1)) */
+attribute def to_m2 <<specializes>> Area { attribute si_factor : Real = 1.0; }
+
+/** to_m3 — convert a Volume quantity to m^3 scale. Usage: to_m3(gal_us(50)) */
+attribute def to_m3 <<specializes>> Volume { attribute si_factor : Real = 1.0; }
+
+/** to_Hz — convert a Frequency quantity to hertz scale. Usage: to_Hz(kHz(40)) */
+attribute def to_Hz <<specializes>> Frequency { attribute si_factor : Real = 1.0; }

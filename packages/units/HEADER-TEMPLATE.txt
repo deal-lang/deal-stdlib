@@ -1,0 +1,6 @@
+// ─────────────────────────────────────────────────────────────────────────
+//  Portions of this file derive from the Modelica Standard Library
+//  (BSD 3-Clause, (c) 1998-2020 Modelica Association) and the ISQ dimension
+//  vector concept from uom-rs (Apache-2.0 / MIT). See deal-stdlib/NOTICE.md.
+//  Quantity values: NIST CODATA 2022 / NIST SP 811 (public domain).
+// ─────────────────────────────────────────────────────────────────────────

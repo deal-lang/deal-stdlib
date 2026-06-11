@@ -1,0 +1,18 @@
+@header {
+    path:       packages/interfaces/electrical/index.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     release
+    marking:    Unclassified
+}
+package deal.std.interfaces.electrical;
+
+// Barrel export for the deal.std.interfaces.electrical package.
+// Consumers: import deal.std.interfaces.electrical.{RJ45, USBC, CANBus, RS422};
+
+export rj45.{RJ45};
+export usb_c.{USBC};
+export can.{CANBus};
+export rs422.{RS422};

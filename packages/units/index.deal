@@ -1,0 +1,66 @@
+@header {
+    path:       packages/units/index.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+package deal.std.units;
+
+// Barrel export for the deal.std.units package.
+// Consumers: import deal.std.units.{kg, V, A, ...};
+
+// SI base dimensions
+export dimensions.{Mass, Length, Time, Current, Temperature, Amount, Luminosity};
+
+// Derived dimensions (Phase 4 baseline)
+export dimensions.{Force, Energy, Power, Voltage, Speed, Resistance, Charge, Duration};
+
+// Derived dimensions (N-07 catalog expansion)
+export dimensions.{Area, Volume, Acceleration, AngularVelocity, AngularAcceleration,
+                   Frequency, Wavenumber, Density, SpecificVolume, Momentum, Pressure,
+                   Stress, Torque, DynamicViscosity, KinematicViscosity, SurfaceTension,
+                   MomentOfInertia, Action, HeatCapacity, Entropy, SpecificHeatCapacity,
+                   ThermalConductivity, HeatFlux, Capacitance, Conductance, MagneticFlux,
+                   MagneticFluxDensity, Inductance, ElectricFieldStrength, Permittivity,
+                   Permeability, LuminousFlux, Illuminance, MolarMass, MolarConcentration,
+                   CatalyticActivity, AbsorbedDose, DoseEquivalent, Radioactivity};
+
+// Dimensionless quantities + units
+export dimensionless.{Dimensionless, Angle, SolidAngle, Strain, percent, rad, deg, sr};
+
+// SI base units
+export si.{kg, g, m, km, cm, mm, s, ms, min, hr, A, mA, K, degC, mol, cd};
+
+// SI derived units
+export si.{N, kN, J, kJ, MJ, Wh, kWh, MWh, W, kW, MW, V, mV, kV, ohm, kohm, Mohm, C};
+
+// Duration aliases
+export si.{s_dur, min_dur};
+
+// Speed units
+export si.{m_per_s, km_per_hr};
+
+// Derived-quantity unit constructors (N-07 si_catalog)
+export si_catalog.{Pa, kPa, MPa, GPa, bar, mbar};
+export si_catalog.{Hz, kHz, MHz, GHz};
+export si_catalog.{F, mF, uF, nF, pF};
+export si_catalog.{H, mH, uH, nH};
+export si_catalog.{Wb, Tesla, mTesla, uTesla, gauss};
+export si_catalog.{S, mS, uS};
+export si_catalog.{m2, cm2, mm2, km2, m3, L, mL, cm3};
+export si_catalog.{m_per_s2, g_accel, rad_per_s, rpm};
+export si_catalog.{kg_per_m3, g_per_cm3, mol_per_m3, mol_per_L, kat};
+export si_catalog.{Gy, mGy, Sv, mSv, Bq, kBq, MBq, GBq, Ci, lx, lm};
+
+// Imperial units (Phase 4 baseline)
+export imperial.{lb, oz, slug, ft, in_unit, mile, yd, hr_imp, lbf, kip, BTU, hp, degF, mph, knot};
+
+// Imperial units (N-08 SP 811 completion)
+export imperial.{nmi, psi, ksi, inHg, atm, acre, gal_us, qt, pt, floz, ftlb, degR};
+
+// Explicit conversion call forms (D-57) — relocated to conversions.deal in N-08
+export conversions.{to_kg, to_m, to_s, to_N, to_J, to_W, to_K, to_m_per_s};
+export conversions.{to_Pa, to_m2, to_m3, to_Hz};

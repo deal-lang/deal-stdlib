@@ -1,0 +1,203 @@
+@header {
+    path:       packages/units/imperial.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+package deal.std.units;
+
+import .dimensions.{Mass, Length, Time, Force, Energy, Power, Temperature, Speed,
+                    Pressure, Area, Volume};
+
+// Imperial units with SI conversion factors.
+//
+// Each unit carries si_factor : Real = <factor to SI base unit>.
+//
+// Explicit conversion call forms (D-57):
+//   to_kg(lb(3300))  — convert lb quantity to kg scale
+//   to_m(ft(1000))   — convert ft quantity to m scale
+//   etc.
+//
+// Naming convention for converters: to_<target_SI_unit>(source_unit_expr)
+// The sema reads si_factor on the converter def to scale the value.
+//
+// Source: NIST SP 811 (2008), Appendix B.
+
+// ── Mass — Imperial ───────────────────────────────────────────────────────
+
+/** lb — pound-mass. Factor: 0.453592 kg (NIST SP 811, Table B.8). */
+attribute def lb <<specializes>> Mass {
+    attribute si_factor : Real = 0.453592;
+}
+
+/** oz — ounce. Factor: 0.028350 kg (1/16 lb, NIST SP 811). */
+attribute def oz <<specializes>> Mass {
+    attribute si_factor : Real = 0.028350;
+}
+
+/** slug — slug (lbf*s^2/ft). Factor: 14.5939 kg (NIST SP 811). */
+attribute def slug <<specializes>> Mass {
+    attribute si_factor : Real = 14.5939;
+}
+
+// ── Length — Imperial ─────────────────────────────────────────────────────
+
+/** ft — foot. Factor: 0.3048 m (NIST SP 811, Table B.3, exact). */
+attribute def ft <<specializes>> Length {
+    attribute si_factor : Real = 0.3048;
+}
+
+/** in_unit — inch. Factor: 0.0254 m (NIST SP 811, exact).
+ *  Named in_unit to avoid collision with the DEAL "in" keyword.
+ */
+attribute def in_unit <<specializes>> Length {
+    attribute si_factor : Real = 0.0254;
+}
+
+/** mile — statute mile. Factor: 1609.344 m (NIST SP 811, exact). */
+attribute def mile <<specializes>> Length {
+    attribute si_factor : Real = 1609.344;
+}
+
+/** yd — yard. Factor: 0.9144 m (NIST SP 811, exact). */
+attribute def yd <<specializes>> Length {
+    attribute si_factor : Real = 0.9144;
+}
+
+// ── Time — Imperial/Common ────────────────────────────────────────────────
+
+/** hr_imp — hour (imperial/common). Factor: 3600 s. Alias for SI hr. */
+attribute def hr_imp <<specializes>> Time {
+    attribute si_factor : Real = 3600.0;
+}
+
+// ── Force — Imperial ──────────────────────────────────────────────────────
+
+/** lbf — pound-force. Factor: 4.44822 N (NIST SP 811, Table B.11). */
+attribute def lbf <<specializes>> Force {
+    attribute si_factor : Real = 4.44822;
+}
+
+/** kip — kilopound-force. Factor: 4448.22 N. */
+attribute def kip <<specializes>> Force {
+    attribute si_factor : Real = 4448.22;
+}
+
+// ── Energy — Imperial ─────────────────────────────────────────────────────
+
+/** BTU — British thermal unit. Factor: 1055.06 J (NIST SP 811, Table B.5). */
+attribute def BTU <<specializes>> Energy {
+    attribute si_factor : Real = 1055.06;
+}
+
+// ── Power — Imperial ──────────────────────────────────────────────────────
+
+/** hp — mechanical horsepower. Factor: 745.700 W (NIST SP 811, Table B.14). */
+attribute def hp <<specializes>> Power {
+    attribute si_factor : Real = 745.700;
+}
+
+// ── Temperature — Imperial ────────────────────────────────────────────────
+
+/** degF — degrees Fahrenheit.
+ *  Conversion to K: T_K = (T_F + 459.67) * 5/9
+ *  si_factor = 5.0/9.0 (scale; offset 459.67 handled by sema for interval arithmetic).
+ */
+attribute def degF <<specializes>> Temperature {
+    attribute si_factor : Real = 0.55556;
+}
+
+// ── Speed — Imperial ──────────────────────────────────────────────────────
+
+/** mph — miles per hour. Factor: 0.44704 m/s (NIST SP 811). */
+attribute def mph <<specializes>> Speed {
+    attribute si_factor : Real = 0.44704;
+}
+
+/** knot — nautical mile per hour. Factor: 0.514444 m/s (NIST SP 811). */
+attribute def knot <<specializes>> Speed {
+    attribute si_factor : Real = 0.514444;
+}
+
+/** nmi — nautical mile. Factor: 1852 m (exact, NIST SP 811). */
+attribute def nmi <<specializes>> Length {
+    attribute si_factor : Real = 1852.0;
+}
+
+// ── Pressure — Imperial ───────────────────────────────────────────────────
+
+/** psi — pound-force per square inch. Factor: 6894.76 Pa (NIST SP 811, Table B.8). */
+attribute def psi <<specializes>> Pressure {
+    attribute si_factor : Real = 6894.76;
+}
+
+/** ksi — kilopound-force per square inch. Factor: 6894760 Pa. */
+attribute def ksi <<specializes>> Pressure {
+    attribute si_factor : Real = 6894760.0;
+}
+
+/** inHg — inch of mercury (conventional). Factor: 3386.39 Pa (NIST SP 811). */
+attribute def inHg <<specializes>> Pressure {
+    attribute si_factor : Real = 3386.39;
+}
+
+/** atm — standard atmosphere. Factor: 101325 Pa (exact). */
+attribute def atm <<specializes>> Pressure {
+    attribute si_factor : Real = 101325.0;
+}
+
+// ── Area — Imperial ───────────────────────────────────────────────────────
+
+/** acre — international acre. Factor: 4046.8564224 m^2 (exact, from intl foot).
+ *  NOTE: the US *survey* acre is 4046.873 m^2 (differs ~4 ppm); this is the
+ *  international acre, standard since the 2023 US-survey-foot deprecation. */
+attribute def acre <<specializes>> Area {
+    attribute si_factor : Real = 4046.8564224;
+}
+
+// ── Volume — Imperial ─────────────────────────────────────────────────────
+
+/** gal_us — US liquid gallon. Factor: 3.78541e-3 m^3 (NIST SP 811). */
+attribute def gal_us <<specializes>> Volume {
+    attribute si_factor : Real = 0.00378541;
+}
+
+/** qt — US liquid quart (1/4 gal). Factor: 9.46353e-4 m^3. */
+attribute def qt <<specializes>> Volume {
+    attribute si_factor : Real = 0.000946353;
+}
+
+/** pt — US liquid pint (1/8 gal). Factor: 4.73176e-4 m^3. */
+attribute def pt <<specializes>> Volume {
+    attribute si_factor : Real = 0.000473176;
+}
+
+/** floz — US fluid ounce (1/128 gal). Factor: 2.95735e-5 m^3. */
+attribute def floz <<specializes>> Volume {
+    attribute si_factor : Real = 0.0000295735;
+}
+
+// ── Energy / Torque — Imperial ────────────────────────────────────────────
+
+/** ftlb — foot pound-force. Factor: 1.35582 J (NIST SP 811, Table B.8).
+ *  Dimensionally Energy; also used as a Torque (N*m) — same-vector ambiguity, see
+ *  dimensions.deal Torque/Energy @same_vector_note. Typed Energy here. */
+attribute def ftlb <<specializes>> Energy {
+    attribute si_factor : Real = 1.35582;
+}
+
+// ── Temperature — Imperial (absolute scale) ───────────────────────────────
+
+/** degR — degree Rankine (absolute Fahrenheit scale). Factor: 5/9 = 0.55556 K. */
+attribute def degR <<specializes>> Temperature {
+    attribute si_factor : Real = 0.55556;
+}
+
+// ── Explicit Conversion Call Forms (D-57) ────────────────────────────────
+//
+// The to_<SI>() converter forms were relocated to conversions.deal in N-08 and
+// extended to the derived-quantity domains. Import them from deal.std.units, e.g.
+//   import deal.std.units.{lb, to_kg, psi, to_Pa};

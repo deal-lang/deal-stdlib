@@ -1,0 +1,26 @@
+@header {
+    path:       packages/interfaces/electrical/rj45.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     release
+    marking:    Unclassified
+}
+package deal.std.interfaces.electrical;
+
+/**
+ * RJ45 8-pin Ethernet connector interface.
+ * Four twisted pairs: TX+/TX- (pair 1, pins 1/2), RX+/RX- (pair 2, pins 3/6),
+ * Bi-Di A (pair 3, pins 4/5), Bi-Di B (pair 4, pins 7/8) per TIA-568.
+ * Supports 10BASE-T through 10GBASE-T (10 Mbps–10 Gbps).
+ */
+interface def RJ45 {
+    @assumes: "TIA-568 wiring standard; differential signal pairs"
+    public (
+        attribute pinCount : Integer [1] = 8;
+        attribute pairCount : Integer [1] = 4;
+        attribute dataRate : Integer [1] = 1000000000;
+        attribute maxCableLength : Integer [1] = 100;
+    )
+}

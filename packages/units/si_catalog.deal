@@ -1,0 +1,186 @@
+@header {
+    path:       packages/units/si_catalog.deal
+    schema:     deal/0.1
+    created:    2026-06-08T00:00:00Z by "David Dunnock"
+    modified:   2026-06-08T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+// ─────────────────────────────────────────────────────────────────────────
+//  Portions of this file derive from the Modelica Standard Library
+//  (BSD 3-Clause, (c) 1998-2020 Modelica Association) and the ISQ dimension
+//  vector concept from uom-rs (Apache-2.0 / MIT). See deal-stdlib/NOTICE.md.
+//  Quantity values: NIST CODATA 2022 / NIST SP 811 (public domain).
+// ─────────────────────────────────────────────────────────────────────────
+package deal.std.units;
+
+import .dimensions.{Pressure, Frequency, Capacitance, Inductance, Conductance,
+                    MagneticFlux, MagneticFluxDensity, Area, Volume, Acceleration,
+                    AngularVelocity, Density, MolarConcentration, CatalyticActivity,
+                    AbsorbedDose, DoseEquivalent, Radioactivity, Illuminance, LuminousFlux};
+
+// Unit constructors for the ISO 80000 derived quantities added in N-07.
+//
+// Each unit <<specializes>> its dimension and carries si_factor : Real (1.0 for
+// the SI-named unit; scale factor for prefixed / non-SI convenience units).
+// Prefix policy: ship the prefixes engineers actually use per quantity, not the
+// full prefix cross-product.
+//
+// Source: BIPM SI Brochure 9th edition (2019), NIST SP 811.
+
+// ── Pressure ──────────────────────────────────────────────────────────────
+
+/** Pa — pascal, SI unit for Pressure. Factor: 1.0. */
+attribute def Pa <<specializes>> Pressure { attribute si_factor : Real = 1.0; }
+/** kPa — kilopascal. Factor: 1000 Pa. */
+attribute def kPa <<specializes>> Pressure { attribute si_factor : Real = 1000.0; }
+/** MPa — megapascal. Factor: 1.0e6 Pa. */
+attribute def MPa <<specializes>> Pressure { attribute si_factor : Real = 1000000.0; }
+/** GPa — gigapascal. Factor: 1.0e9 Pa. */
+attribute def GPa <<specializes>> Pressure { attribute si_factor : Real = 1000000000.0; }
+/** bar — bar. Factor: 1.0e5 Pa (non-SI). */
+attribute def bar <<specializes>> Pressure { attribute si_factor : Real = 100000.0; }
+/** mbar — millibar. Factor: 100 Pa (non-SI). */
+attribute def mbar <<specializes>> Pressure { attribute si_factor : Real = 100.0; }
+
+// ── Frequency ─────────────────────────────────────────────────────────────
+
+/** Hz — hertz, SI unit for Frequency. Factor: 1.0. */
+attribute def Hz <<specializes>> Frequency { attribute si_factor : Real = 1.0; }
+/** kHz — kilohertz. Factor: 1000 Hz. */
+attribute def kHz <<specializes>> Frequency { attribute si_factor : Real = 1000.0; }
+/** MHz — megahertz. Factor: 1.0e6 Hz. */
+attribute def MHz <<specializes>> Frequency { attribute si_factor : Real = 1000000.0; }
+/** GHz — gigahertz. Factor: 1.0e9 Hz. */
+attribute def GHz <<specializes>> Frequency { attribute si_factor : Real = 1000000000.0; }
+
+// ── Capacitance ───────────────────────────────────────────────────────────
+
+/** F — farad, SI unit for Capacitance. Factor: 1.0. */
+attribute def F <<specializes>> Capacitance { attribute si_factor : Real = 1.0; }
+/** mF — millifarad. Factor: 0.001 F. */
+attribute def mF <<specializes>> Capacitance { attribute si_factor : Real = 0.001; }
+/** uF — microfarad. Factor: 1.0e-6 F. */
+attribute def uF <<specializes>> Capacitance { attribute si_factor : Real = 0.000001; }
+/** nF — nanofarad. Factor: 1.0e-9 F. */
+attribute def nF <<specializes>> Capacitance { attribute si_factor : Real = 0.000000001; }
+/** pF — picofarad. Factor: 1.0e-12 F. */
+attribute def pF <<specializes>> Capacitance { attribute si_factor : Real = 0.000000000001; }
+
+// ── Inductance ────────────────────────────────────────────────────────────
+
+/** H — henry, SI unit for Inductance. Factor: 1.0. */
+attribute def H <<specializes>> Inductance { attribute si_factor : Real = 1.0; }
+/** mH — millihenry. Factor: 0.001 H. */
+attribute def mH <<specializes>> Inductance { attribute si_factor : Real = 0.001; }
+/** uH — microhenry. Factor: 1.0e-6 H. */
+attribute def uH <<specializes>> Inductance { attribute si_factor : Real = 0.000001; }
+/** nH — nanohenry. Factor: 1.0e-9 H. */
+attribute def nH <<specializes>> Inductance { attribute si_factor : Real = 0.000000001; }
+
+// ── Magnetic Flux & Flux Density ──────────────────────────────────────────
+
+/** Wb — weber, SI unit for MagneticFlux. Factor: 1.0. */
+attribute def Wb <<specializes>> MagneticFlux { attribute si_factor : Real = 1.0; }
+/** Tesla — tesla, SI unit for MagneticFluxDensity. Factor: 1.0.
+ *  Named Tesla (not T) to avoid collision with any single-letter type usage. */
+attribute def Tesla <<specializes>> MagneticFluxDensity { attribute si_factor : Real = 1.0; }
+/** mTesla — millitesla. Factor: 0.001 T. */
+attribute def mTesla <<specializes>> MagneticFluxDensity { attribute si_factor : Real = 0.001; }
+/** uTesla — microtesla. Factor: 1.0e-6 T. */
+attribute def uTesla <<specializes>> MagneticFluxDensity { attribute si_factor : Real = 0.000001; }
+/** gauss — gauss. Factor: 1.0e-4 T (non-SI). */
+attribute def gauss <<specializes>> MagneticFluxDensity { attribute si_factor : Real = 0.0001; }
+
+// ── Conductance ───────────────────────────────────────────────────────────
+
+/** S — siemens, SI unit for Conductance. Factor: 1.0. */
+attribute def S <<specializes>> Conductance { attribute si_factor : Real = 1.0; }
+/** mS — millisiemens. Factor: 0.001 S. */
+attribute def mS <<specializes>> Conductance { attribute si_factor : Real = 0.001; }
+/** uS — microsiemens. Factor: 1.0e-6 S. */
+attribute def uS <<specializes>> Conductance { attribute si_factor : Real = 0.000001; }
+
+// ── Area ──────────────────────────────────────────────────────────────────
+
+/** m2 — square metre, SI unit for Area. Factor: 1.0. */
+attribute def m2 <<specializes>> Area { attribute si_factor : Real = 1.0; }
+/** cm2 — square centimetre. Factor: 1.0e-4 m^2. */
+attribute def cm2 <<specializes>> Area { attribute si_factor : Real = 0.0001; }
+/** mm2 — square millimetre. Factor: 1.0e-6 m^2. */
+attribute def mm2 <<specializes>> Area { attribute si_factor : Real = 0.000001; }
+/** km2 — square kilometre. Factor: 1.0e6 m^2. */
+attribute def km2 <<specializes>> Area { attribute si_factor : Real = 1000000.0; }
+
+// ── Volume ────────────────────────────────────────────────────────────────
+
+/** m3 — cubic metre, SI unit for Volume. Factor: 1.0. */
+attribute def m3 <<specializes>> Volume { attribute si_factor : Real = 1.0; }
+/** L — litre. Factor: 1.0e-3 m^3 (non-SI). */
+attribute def L <<specializes>> Volume { attribute si_factor : Real = 0.001; }
+/** mL — millilitre. Factor: 1.0e-6 m^3. */
+attribute def mL <<specializes>> Volume { attribute si_factor : Real = 0.000001; }
+/** cm3 — cubic centimetre. Factor: 1.0e-6 m^3. */
+attribute def cm3 <<specializes>> Volume { attribute si_factor : Real = 0.000001; }
+
+// ── Acceleration ──────────────────────────────────────────────────────────
+
+/** m_per_s2 — metre per second squared, SI unit for Acceleration. Factor: 1.0. */
+attribute def m_per_s2 <<specializes>> Acceleration { attribute si_factor : Real = 1.0; }
+/** g_accel — standard gravity. Factor: 9.80665 m/s^2 (non-SI). */
+attribute def g_accel <<specializes>> Acceleration { attribute si_factor : Real = 9.80665; }
+
+// ── Angular Velocity ──────────────────────────────────────────────────────
+
+/** rad_per_s — radian per second, SI unit for AngularVelocity. Factor: 1.0. */
+attribute def rad_per_s <<specializes>> AngularVelocity { attribute si_factor : Real = 1.0; }
+/** rpm — revolutions per minute. Factor: 0.1047198 rad/s (2*pi/60). */
+attribute def rpm <<specializes>> AngularVelocity { attribute si_factor : Real = 0.1047198; }
+
+// ── Density ───────────────────────────────────────────────────────────────
+
+/** kg_per_m3 — kilogram per cubic metre, SI unit for Density. Factor: 1.0. */
+attribute def kg_per_m3 <<specializes>> Density { attribute si_factor : Real = 1.0; }
+/** g_per_cm3 — gram per cubic centimetre. Factor: 1000 kg/m^3. */
+attribute def g_per_cm3 <<specializes>> Density { attribute si_factor : Real = 1000.0; }
+
+// ── Molar Concentration ───────────────────────────────────────────────────
+
+/** mol_per_m3 — mole per cubic metre, SI unit for MolarConcentration. Factor: 1.0. */
+attribute def mol_per_m3 <<specializes>> MolarConcentration { attribute si_factor : Real = 1.0; }
+/** mol_per_L — mole per litre (molar). Factor: 1000 mol/m^3. */
+attribute def mol_per_L <<specializes>> MolarConcentration { attribute si_factor : Real = 1000.0; }
+
+// ── Catalytic Activity ────────────────────────────────────────────────────
+
+/** kat — katal, SI unit for CatalyticActivity. Factor: 1.0. */
+attribute def kat <<specializes>> CatalyticActivity { attribute si_factor : Real = 1.0; }
+
+// ── Ionizing Radiation ────────────────────────────────────────────────────
+
+/** Gy — gray, SI unit for AbsorbedDose. Factor: 1.0. */
+attribute def Gy <<specializes>> AbsorbedDose { attribute si_factor : Real = 1.0; }
+/** mGy — milligray. Factor: 0.001 Gy. */
+attribute def mGy <<specializes>> AbsorbedDose { attribute si_factor : Real = 0.001; }
+/** Sv — sievert, SI unit for DoseEquivalent. Factor: 1.0. */
+attribute def Sv <<specializes>> DoseEquivalent { attribute si_factor : Real = 1.0; }
+/** mSv — millisievert. Factor: 0.001 Sv. */
+attribute def mSv <<specializes>> DoseEquivalent { attribute si_factor : Real = 0.001; }
+/** Bq — becquerel, SI unit for Radioactivity. Factor: 1.0. */
+attribute def Bq <<specializes>> Radioactivity { attribute si_factor : Real = 1.0; }
+/** kBq — kilobecquerel. Factor: 1000 Bq. */
+attribute def kBq <<specializes>> Radioactivity { attribute si_factor : Real = 1000.0; }
+/** MBq — megabecquerel. Factor: 1.0e6 Bq. */
+attribute def MBq <<specializes>> Radioactivity { attribute si_factor : Real = 1000000.0; }
+/** GBq — gigabecquerel. Factor: 1.0e9 Bq. */
+attribute def GBq <<specializes>> Radioactivity { attribute si_factor : Real = 1000000000.0; }
+/** Ci — curie. Factor: 3.7e10 Bq (non-SI). */
+attribute def Ci <<specializes>> Radioactivity { attribute si_factor : Real = 37000000000.0; }
+
+// ── Photometry ────────────────────────────────────────────────────────────
+
+/** lx — lux, SI unit for Illuminance. Factor: 1.0. */
+attribute def lx <<specializes>> Illuminance { attribute si_factor : Real = 1.0; }
+/** lm — lumen, SI unit for LuminousFlux. Factor: 1.0. */
+attribute def lm <<specializes>> LuminousFlux { attribute si_factor : Real = 1.0; }

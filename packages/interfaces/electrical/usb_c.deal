@@ -1,0 +1,26 @@
+@header {
+    path:       packages/interfaces/electrical/usb_c.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     release
+    marking:    Unclassified
+}
+package deal.std.interfaces.electrical;
+
+import deal.std.units.{V, A, W, Voltage, Current, Power};
+
+/**
+ * USB-C connector interface with power delivery support.
+ * Based on USB Power Delivery 3.0 specification — supports up to 100W (20V/5A).
+ * Bidirectional power flow and data (USB 3.x / Thunderbolt) over same connector.
+ */
+interface def USBC {
+    @assumes: "USB Power Delivery 3.0 — 5V..20V, up to 5A"
+    public (
+        attribute voltage : Voltage [1] = V(20);
+        attribute maxCurrent : Current [1] = A(5);
+        derived attribute maxPower : Power = voltage * maxCurrent;
+    )
+}

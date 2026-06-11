@@ -1,0 +1,661 @@
+@header {
+    path:       packages/units/dimensions.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+// ─────────────────────────────────────────────────────────────────────────
+//  Portions of this file derive from the Modelica Standard Library
+//  (BSD 3-Clause, (c) 1998-2020 Modelica Association) and the ISQ dimension
+//  vector concept from uom-rs (Apache-2.0 / MIT). See deal-stdlib/NOTICE.md.
+//  Quantity values: NIST CODATA 2022 / NIST SP 811 (public domain).
+// ─────────────────────────────────────────────────────────────────────────
+package deal.std.units;
+
+// SI base dimensions and common derived dimensions.
+//
+// Encoding: ADR-phase-4-dimension-metadata-syntax.md (attr-def-body, Option A).
+// Each dimension attribute def carries a 7-exponent SI vector:
+//   si_M  = Mass exponent
+//   si_L  = Length exponent
+//   si_T  = Time exponent
+//   si_I  = Electric current exponent
+//   si_TH = Thermodynamic temperature exponent
+//   si_N  = Amount of substance exponent
+//   si_J  = Luminous intensity exponent
+//
+// Source: BIPM SI Brochure 9th edition (2019), Table 1 and Table 2.
+
+// ── SI Base Dimensions ────────────────────────────────────────────────────
+
+/** Mass — SI base quantity. Symbol M. SI base unit: kilogram (kg). */
+attribute def Mass {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Length — SI base quantity. Symbol L. SI base unit: metre (m). */
+attribute def Length {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Time — SI base quantity. Symbol T. SI base unit: second (s). */
+attribute def Time {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Current — SI base quantity for electric current. Symbol I. SI base unit: ampere (A). */
+attribute def Current {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 1;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Temperature — SI base quantity (thermodynamic). Symbol Theta. SI base unit: kelvin (K). */
+attribute def Temperature {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 1;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Amount — SI base quantity for amount of substance. Symbol N. SI base unit: mole (mol). */
+attribute def Amount {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 1;
+    attribute si_J  : Integer = 0;
+}
+
+/** Luminosity — SI base quantity for luminous intensity. Symbol J. SI base unit: candela (cd). */
+attribute def Luminosity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 1;
+}
+
+// ── Common Derived Dimensions ─────────────────────────────────────────────
+
+/** Force — M*L*T^-2. SI derived unit: newton (N = kg*m/s^2). */
+attribute def Force {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Energy — M*L^2*T^-2. SI derived unit: joule (J = N*m).
+ *  @same_vector_note: distinct-from Torque — Lane A enforcement (N-00 ③). */
+attribute def Energy {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Power — M*L^2*T^-3. SI derived unit: watt (W = J/s). */
+attribute def Power {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Voltage — M*L^2*T^-3*I^-1. SI derived unit: volt (V = W/A). */
+attribute def Voltage {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = -1;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Speed — L*T^-1. Derived from Length/Time (e.g., m/s). */
+attribute def Speed {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Resistance — M*L^2*T^-3*I^-2. SI derived unit: ohm. */
+attribute def Resistance {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = -2;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Charge — T*I. SI derived unit: coulomb (C = A*s). */
+attribute def Charge {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 1;
+    attribute si_I  : Integer = 1;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Duration — alias for Time dimension; used in requirement contexts. */
+attribute def Duration {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── ISO 80000 Derived Dimensions (N-07 catalog expansion) ─────────────────
+//
+// Vector order: [si_M, si_L, si_T, si_I, si_TH, si_N, si_J].
+// Same-vector quantities are declared distinctly and tagged @same_vector_note
+// so the Lane A enforcement pass (N-00 ③) has an exact list. Physics-verified
+// against ISO 80000-1. Extend toward full Modelica.Units.SI coverage with the
+// same encoding.
+
+// ── Space & Time ──────────────────────────────────────────────────────────
+
+/** Area — L^2. SI unit: m^2. */
+attribute def Area {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Volume — L^3. SI unit: m^3. */
+attribute def Volume {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 3;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Acceleration — L*T^-2. SI unit: m/s^2. */
+attribute def Acceleration {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** AngularVelocity — T^-1. SI unit: rad/s.
+ *  @same_vector_note: distinct-from Frequency, Radioactivity — Lane A enforcement (N-00 ③). */
+attribute def AngularVelocity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** AngularAcceleration — T^-2. SI unit: rad/s^2. */
+attribute def AngularAcceleration {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Frequency — T^-1. SI unit: hertz (Hz = 1/s).
+ *  @same_vector_note: distinct-from AngularVelocity, Radioactivity — Lane A enforcement (N-00 ③). */
+attribute def Frequency {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Wavenumber — L^-1. SI unit: 1/m. */
+attribute def Wavenumber {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = -1;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Mechanics ─────────────────────────────────────────────────────────────
+
+/** Density — M*L^-3. SI unit: kg/m^3. */
+attribute def Density {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = -3;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** SpecificVolume — M^-1*L^3. SI unit: m^3/kg. */
+attribute def SpecificVolume {
+    attribute si_M  : Integer = -1;
+    attribute si_L  : Integer = 3;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Momentum — M*L*T^-1. SI unit: kg*m/s. */
+attribute def Momentum {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Pressure — M*L^-1*T^-2. SI unit: pascal (Pa = N/m^2).
+ *  @same_vector_note: distinct-from Stress — Lane A enforcement (N-00 ③). */
+attribute def Pressure {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = -1;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Stress — M*L^-1*T^-2. SI unit: pascal (Pa).
+ *  @same_vector_note: distinct-from Pressure — Lane A enforcement (N-00 ③). */
+attribute def Stress {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = -1;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Torque — M*L^2*T^-2. SI unit: N*m.
+ *  @same_vector_note: distinct-from Energy — Lane A enforcement (N-00 ③). */
+attribute def Torque {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** DynamicViscosity — M*L^-1*T^-1. SI unit: Pa*s. */
+attribute def DynamicViscosity {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = -1;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** KinematicViscosity — L^2*T^-1. SI unit: m^2/s. */
+attribute def KinematicViscosity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** SurfaceTension — M*T^-2. SI unit: N/m. */
+attribute def SurfaceTension {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** MomentOfInertia — M*L^2. SI unit: kg*m^2. */
+attribute def MomentOfInertia {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Action — M*L^2*T^-1. SI unit: J*s (used by Planck constant). */
+attribute def Action {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Thermal ───────────────────────────────────────────────────────────────
+
+/** HeatCapacity — M*L^2*T^-2*Theta^-1. SI unit: J/K.
+ *  @same_vector_note: distinct-from Entropy — Lane A enforcement (N-00 ③). */
+attribute def HeatCapacity {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = -1;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Entropy — M*L^2*T^-2*Theta^-1. SI unit: J/K.
+ *  @same_vector_note: distinct-from HeatCapacity — Lane A enforcement (N-00 ③). */
+attribute def Entropy {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = -1;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** SpecificHeatCapacity — L^2*T^-2*Theta^-1. SI unit: J/(kg*K). */
+attribute def SpecificHeatCapacity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = -1;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** ThermalConductivity — M*L*T^-3*Theta^-1. SI unit: W/(m*K). */
+attribute def ThermalConductivity {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = -1;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** HeatFlux — M*T^-3. SI unit: W/m^2. */
+attribute def HeatFlux {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Electromagnetism ──────────────────────────────────────────────────────
+
+/** Capacitance — M^-1*L^-2*T^4*I^2. SI unit: farad (F). */
+attribute def Capacitance {
+    attribute si_M  : Integer = -1;
+    attribute si_L  : Integer = -2;
+    attribute si_T  : Integer = 4;
+    attribute si_I  : Integer = 2;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Conductance — M^-1*L^-2*T^3*I^2. SI unit: siemens (S). */
+attribute def Conductance {
+    attribute si_M  : Integer = -1;
+    attribute si_L  : Integer = -2;
+    attribute si_T  : Integer = 3;
+    attribute si_I  : Integer = 2;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** MagneticFlux — M*L^2*T^-2*I^-1. SI unit: weber (Wb). */
+attribute def MagneticFlux {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = -1;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** MagneticFluxDensity — M*T^-2*I^-1. SI unit: tesla (T). */
+attribute def MagneticFluxDensity {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = -1;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Inductance — M*L^2*T^-2*I^-2. SI unit: henry (H). */
+attribute def Inductance {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = -2;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** ElectricFieldStrength — M*L*T^-3*I^-1. SI unit: V/m. */
+attribute def ElectricFieldStrength {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = -1;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Permittivity — M^-1*L^-3*T^4*I^2. SI unit: F/m. */
+attribute def Permittivity {
+    attribute si_M  : Integer = -1;
+    attribute si_L  : Integer = -3;
+    attribute si_T  : Integer = 4;
+    attribute si_I  : Integer = 2;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Permeability — M*L*T^-2*I^-2. SI unit: H/m. */
+attribute def Permeability {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = -2;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Photometry ────────────────────────────────────────────────────────────
+
+/** LuminousFlux — J (candela*steradian). SI unit: lumen (lm). */
+attribute def LuminousFlux {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 1;
+}
+
+/** Illuminance — L^-2*J. SI unit: lux (lx = lm/m^2). */
+attribute def Illuminance {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = -2;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 1;
+}
+
+// ── Physical Chemistry ────────────────────────────────────────────────────
+
+/** MolarMass — M*N^-1. SI unit: kg/mol. */
+attribute def MolarMass {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = -1;
+    attribute si_J  : Integer = 0;
+}
+
+/** MolarConcentration — L^-3*N. SI unit: mol/m^3. */
+attribute def MolarConcentration {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = -3;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 1;
+    attribute si_J  : Integer = 0;
+}
+
+/** CatalyticActivity — T^-1*N. SI unit: katal (kat = mol/s). */
+attribute def CatalyticActivity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 1;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Ionizing Radiation ────────────────────────────────────────────────────
+
+/** AbsorbedDose — L^2*T^-2. SI unit: gray (Gy = J/kg).
+ *  @same_vector_note: distinct-from DoseEquivalent — Lane A enforcement (N-00 ③). */
+attribute def AbsorbedDose {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** DoseEquivalent — L^2*T^-2. SI unit: sievert (Sv = J/kg).
+ *  @same_vector_note: distinct-from AbsorbedDose — Lane A enforcement (N-00 ③). */
+attribute def DoseEquivalent {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Radioactivity — T^-1. SI unit: becquerel (Bq = 1/s).
+ *  @same_vector_note: distinct-from Frequency, AngularVelocity — Lane A enforcement (N-00 ③). */
+attribute def Radioactivity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}

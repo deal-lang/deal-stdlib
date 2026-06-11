@@ -1,0 +1,100 @@
+@header {
+    path:       packages/units/dimensionless.deal
+    schema:     deal/0.1
+    created:    2026-06-08T00:00:00Z by "David Dunnock"
+    modified:   2026-06-08T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+// ─────────────────────────────────────────────────────────────────────────
+//  Portions of this file derive from the Modelica Standard Library
+//  (BSD 3-Clause, (c) 1998-2020 Modelica Association) and the ISQ dimension
+//  vector concept from uom-rs (Apache-2.0 / MIT). See deal-stdlib/NOTICE.md.
+//  Quantity values: NIST CODATA 2022 / NIST SP 811 (public domain).
+// ─────────────────────────────────────────────────────────────────────────
+package deal.std.units;
+
+// Dimensionless quantities — all seven SI exponents are zero.
+//
+// Angle, SolidAngle, Strain, and the base Dimensionless quantity all share the
+// all-zero exponent vector. They are declared as DISTINCT named dimensions so a
+// later sema enforcement pass (Lane A, N-00 ③) can keep e.g. an Angle from being
+// silently assigned to a bare Dimensionless ratio. The current Check #7 algebra
+// compares only the exponent vector, so today these are interchangeable; the
+// @same_vector_note flags mark the names that must stay distinct under enforcement.
+//
+// Source: ISO 80000-3 (space and time), BIPM SI Brochure 9th edition (2019).
+
+// ── Base Dimensionless ────────────────────────────────────────────────────
+
+/** Dimensionless — pure number / ratio (efficiency, count, gain). Vector: all zero. */
+attribute def Dimensionless {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Angle — plane angle (radian). Dimensionless, named-distinct.
+ *  @same_vector_note: distinct-from Dimensionless — Lane A enforcement (N-00 ③). */
+attribute def Angle {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** SolidAngle — solid angle (steradian). Dimensionless, named-distinct.
+ *  @same_vector_note: distinct-from Dimensionless — Lane A enforcement (N-00 ③). */
+attribute def SolidAngle {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** Strain — dimensionless deformation ratio (ΔL/L). Named-distinct.
+ *  @same_vector_note: distinct-from Dimensionless — Lane A enforcement (N-00 ③). */
+attribute def Strain {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Dimensionless Units ───────────────────────────────────────────────────
+
+/** percent — dimensionless fraction expressed as percentage. Factor: 0.01.
+ *  Usage: percent(5) represents 5% = 0.05 in calculations.
+ *  Re-homed off the former Mass hack (was in si.deal) — now Dimensionless. */
+attribute def percent <<specializes>> Dimensionless {
+    attribute si_factor : Real = 0.01;
+}
+
+/** rad — radian, SI unit for Angle. Factor: 1.0. */
+attribute def rad <<specializes>> Angle {
+    attribute si_factor : Real = 1.0;
+}
+
+/** deg — degree of arc. Factor: 0.0174533 rad (π/180). */
+attribute def deg <<specializes>> Angle {
+    attribute si_factor : Real = 0.0174533;
+}
+
+/** sr — steradian, SI unit for SolidAngle. Factor: 1.0. */
+attribute def sr <<specializes>> SolidAngle {
+    attribute si_factor : Real = 1.0;
+}

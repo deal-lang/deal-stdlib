@@ -1,0 +1,8 @@
+[project]
+name = "deal-std"
+version = "v0.4.0"
+schema = "deal/0.1"
+description = "DEAL standard library — SI + imperial units, ISO 80000 quantity catalog, CODATA 2022 constants, electrical and mechanical interfaces"
+
+[workspace]
+packages = ["packages/*"]

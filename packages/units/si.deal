@@ -1,0 +1,257 @@
+@header {
+    path:       packages/units/si.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+package deal.std.units;
+
+import .dimensions.{Mass, Length, Time, Current, Temperature, Amount, Luminosity,
+                    Force, Energy, Power, Voltage, Speed, Resistance, Charge, Duration};
+
+// SI base and derived units.
+//
+// Each unit attribute def:
+//   - <<specializes>> the corresponding dimension from dimensions.deal
+//   - carries si_factor : Real = <conversion factor to SI base unit>
+//     (1.0 for base units; scale factor for prefixed/derived units)
+//
+// Usage (SD-13/PS-6 function form):
+//   attribute mass : Mass = kg(1500);
+//   attribute voltage : Voltage = V(800);
+//   attribute energy : Energy = kWh(85);
+//
+// Source: BIPM SI Brochure 9th edition (2019), NIST SP 811.
+
+// ── Mass Units ────────────────────────────────────────────────────────────
+
+/** kg — kilogram, SI base unit for Mass. Factor: 1.0 (SI base). */
+attribute def kg <<specializes>> Mass {
+    attribute si_factor : Real = 1.0;
+}
+
+/** g — gram. Factor: 0.001 kg. */
+attribute def g <<specializes>> Mass {
+    attribute si_factor : Real = 0.001;
+}
+
+// ── Length Units ──────────────────────────────────────────────────────────
+
+/** m — metre, SI base unit for Length. Factor: 1.0 (SI base). */
+attribute def m <<specializes>> Length {
+    attribute si_factor : Real = 1.0;
+}
+
+/** km — kilometre. Factor: 1000 m. */
+attribute def km <<specializes>> Length {
+    attribute si_factor : Real = 1000.0;
+}
+
+/** cm — centimetre. Factor: 0.01 m. */
+attribute def cm <<specializes>> Length {
+    attribute si_factor : Real = 0.01;
+}
+
+/** mm — millimetre. Factor: 0.001 m. */
+attribute def mm <<specializes>> Length {
+    attribute si_factor : Real = 0.001;
+}
+
+// ── Time Units ────────────────────────────────────────────────────────────
+
+/** s — second, SI base unit for Time. Factor: 1.0 (SI base). */
+attribute def s <<specializes>> Time {
+    attribute si_factor : Real = 1.0;
+}
+
+/** ms — millisecond. Factor: 0.001 s. */
+attribute def ms <<specializes>> Time {
+    attribute si_factor : Real = 0.001;
+}
+
+/** min — minute. Factor: 60 s. */
+attribute def min <<specializes>> Time {
+    attribute si_factor : Real = 60.0;
+}
+
+/** hr — hour. Factor: 3600 s. */
+attribute def hr <<specializes>> Time {
+    attribute si_factor : Real = 3600.0;
+}
+
+// ── Electric Current Units ────────────────────────────────────────────────
+
+/** A — ampere, SI base unit for Current. Factor: 1.0 (SI base). */
+attribute def A <<specializes>> Current {
+    attribute si_factor : Real = 1.0;
+}
+
+/** mA — milliampere. Factor: 0.001 A. */
+attribute def mA <<specializes>> Current {
+    attribute si_factor : Real = 0.001;
+}
+
+// ── Temperature Units ─────────────────────────────────────────────────────
+
+/** K — kelvin, SI base unit for Temperature. Factor: 1.0 (SI base).
+ *  Note: degC is an offset scale — sema treats degC(x) as (x + 273.15) K
+ *  for dimensional consistency checks but tracks as Temperature dimension.
+ */
+attribute def K <<specializes>> Temperature {
+    attribute si_factor : Real = 1.0;
+}
+
+/** degC — degrees Celsius. Offset from kelvin: T_K = T_degC + 273.15.
+ *  Factor: 1.0 (same scale magnitude as K; offset handled by sema).
+ */
+attribute def degC <<specializes>> Temperature {
+    attribute si_factor : Real = 1.0;
+}
+
+// ── Amount Units ──────────────────────────────────────────────────────────
+
+/** mol — mole, SI base unit for Amount. Factor: 1.0 (SI base). */
+attribute def mol <<specializes>> Amount {
+    attribute si_factor : Real = 1.0;
+}
+
+// ── Luminous Intensity Units ──────────────────────────────────────────────
+
+/** cd — candela, SI base unit for Luminosity. Factor: 1.0 (SI base). */
+attribute def cd <<specializes>> Luminosity {
+    attribute si_factor : Real = 1.0;
+}
+
+// ── Force Units ───────────────────────────────────────────────────────────
+
+/** N — newton, SI derived unit for Force. Factor: 1.0 (SI derived base). */
+attribute def N <<specializes>> Force {
+    attribute si_factor : Real = 1.0;
+}
+
+/** kN — kilonewton. Factor: 1000 N. */
+attribute def kN <<specializes>> Force {
+    attribute si_factor : Real = 1000.0;
+}
+
+// ── Energy Units ──────────────────────────────────────────────────────────
+
+/** J — joule, SI derived unit for Energy. Factor: 1.0 (SI derived base). */
+attribute def J <<specializes>> Energy {
+    attribute si_factor : Real = 1.0;
+}
+
+/** kJ — kilojoule. Factor: 1000 J. */
+attribute def kJ <<specializes>> Energy {
+    attribute si_factor : Real = 1000.0;
+}
+
+/** MJ — megajoule. Factor: 1000000 J. */
+attribute def MJ <<specializes>> Energy {
+    attribute si_factor : Real = 1000000.0;
+}
+
+/** Wh — watt-hour. Factor: 3600 J. */
+attribute def Wh <<specializes>> Energy {
+    attribute si_factor : Real = 3600.0;
+}
+
+/** kWh — kilowatt-hour. Factor: 3600000 J. */
+attribute def kWh <<specializes>> Energy {
+    attribute si_factor : Real = 3600000.0;
+}
+
+/** MWh — megawatt-hour. Factor: 3600000000 J. */
+attribute def MWh <<specializes>> Energy {
+    attribute si_factor : Real = 3600000000.0;
+}
+
+// ── Power Units ───────────────────────────────────────────────────────────
+
+/** W — watt, SI derived unit for Power. Factor: 1.0 (SI derived base). */
+attribute def W <<specializes>> Power {
+    attribute si_factor : Real = 1.0;
+}
+
+/** kW — kilowatt. Factor: 1000 W. */
+attribute def kW <<specializes>> Power {
+    attribute si_factor : Real = 1000.0;
+}
+
+/** MW — megawatt. Factor: 1000000 W. */
+attribute def MW <<specializes>> Power {
+    attribute si_factor : Real = 1000000.0;
+}
+
+// ── Voltage Units ─────────────────────────────────────────────────────────
+
+/** V — volt, SI derived unit for Voltage. Factor: 1.0 (SI derived base). */
+attribute def V <<specializes>> Voltage {
+    attribute si_factor : Real = 1.0;
+}
+
+/** mV — millivolt. Factor: 0.001 V. */
+attribute def mV <<specializes>> Voltage {
+    attribute si_factor : Real = 0.001;
+}
+
+/** kV — kilovolt. Factor: 1000 V. */
+attribute def kV <<specializes>> Voltage {
+    attribute si_factor : Real = 1000.0;
+}
+
+// ── Resistance Units ──────────────────────────────────────────────────────
+
+/** ohm — ohm, SI derived unit for Resistance. Factor: 1.0 (SI derived base). */
+attribute def ohm <<specializes>> Resistance {
+    attribute si_factor : Real = 1.0;
+}
+
+/** kohm — kilohm. Factor: 1000 ohm. */
+attribute def kohm <<specializes>> Resistance {
+    attribute si_factor : Real = 1000.0;
+}
+
+/** Mohm — megohm. Factor: 1000000 ohm. */
+attribute def Mohm <<specializes>> Resistance {
+    attribute si_factor : Real = 1000000.0;
+}
+
+// ── Charge Units ──────────────────────────────────────────────────────────
+
+/** C — coulomb, SI derived unit for Charge. Factor: 1.0 (SI derived base). */
+attribute def C <<specializes>> Charge {
+    attribute si_factor : Real = 1.0;
+}
+
+// ── Duration Alias Units ──────────────────────────────────────────────────
+
+/** s_dur — second as Duration (alias for s, Duration dimension). */
+attribute def s_dur <<specializes>> Duration {
+    attribute si_factor : Real = 1.0;
+}
+
+/** min_dur — minute as Duration. Factor: 60 s. */
+attribute def min_dur <<specializes>> Duration {
+    attribute si_factor : Real = 60.0;
+}
+
+// ── Dimensionless ─────────────────────────────────────────────────────────
+//
+// percent moved to dimensionless.deal (now <<specializes>> Dimensionless, not
+// the former Mass hack). Import it from deal.std.units.{percent} as before.
+
+// ── Speed Units ───────────────────────────────────────────────────────────
+
+/** m_per_s — metres per second. Factor: 1.0 (SI derived base for Speed). */
+attribute def m_per_s <<specializes>> Speed {
+    attribute si_factor : Real = 1.0;
+}
+
+/** km_per_hr — kilometres per hour. Factor: 0.27778 m/s (1000/3600). */
+attribute def km_per_hr <<specializes>> Speed {
+    attribute si_factor : Real = 0.27778;
+}

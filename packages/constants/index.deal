@@ -1,0 +1,19 @@
+@header {
+    path:       packages/constants/index.deal
+    schema:     deal/0.1
+    created:    2026-06-08T00:00:00Z by "David Dunnock"
+    modified:   2026-06-08T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+package deal.std.constants;
+
+// Barrel export for the deal.std.constants package.
+// Consumers: import deal.std.constants.{c, h, k_B, N_A, q_e, ...};
+//
+// CODATA 2022 fundamental physical constants. See codata.deal for the encoding
+// convention (call form: c(1) yields the constant value).
+
+export codata.{c, h, hbar, k_B, N_A, q_e, g_0, R, sigma};
+export codata.{m_e, m_p, G, eps_0, mu_0};

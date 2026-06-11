@@ -1,0 +1,54 @@
+@header {
+    path:       packages/interfaces/mechanical/bolt_patterns.deal
+    schema:     deal/0.1
+    created:    2026-06-06T00:00:00Z by "David Dunnock"
+    modified:   2026-06-06T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     release
+    marking:    Unclassified
+}
+package deal.std.interfaces.mechanical;
+
+import deal.std.units.{m, mm, Length};
+
+/**
+ * Generic bolt-pattern mechanical interface.
+ * Defines the circular bolt pattern used to mate two flanges or mounting surfaces.
+ * Bolt circle diameter (BCD) is the diameter of the circle on which bolt centres lie.
+ */
+interface def BoltPattern {
+    @assumes: "Bolts equally spaced on a single bolt circle"
+    public (
+        attribute boltCount : Integer [1];
+        attribute boltCircleDiameter : Length [1];
+        attribute boltSize : Integer [1];
+    )
+}
+
+/**
+ * 4×100 mm bolt pattern.
+ * Common on compact passenger vehicles (VW Golf Mk1-4, Honda Civic, Toyota Corolla E9-E11).
+ * Four M12 bolts on a 100 mm bolt circle diameter.
+ */
+interface def BoltPattern4x100 <<specializes>> BoltPattern {
+    @assumes: "4 bolts on 100 mm BCD; M12 bolt size (size 12 mm nominal)"
+    public (
+        attribute boltCount : Integer [1] = 4;
+        attribute boltCircleDiameter : Length [1] = mm(100);
+        attribute boltSize : Integer [1] = 12;
+    )
+}
+
+/**
+ * 5×114.3 mm bolt pattern.
+ * Widely used on mid-size vehicles (Ford Mustang, Honda Accord, many Nissan/Toyota models).
+ * Five M12 bolts on a 114.3 mm bolt circle diameter.
+ */
+interface def BoltPattern5x114_3 <<specializes>> BoltPattern {
+    @assumes: "5 bolts on 114.3 mm BCD; M12 bolt size (size 12 mm nominal)"
+    public (
+        attribute boltCount : Integer [1] = 5;
+        attribute boltCircleDiameter : Length [1] = mm(114);
+        attribute boltSize : Integer [1] = 12;
+    )
+}

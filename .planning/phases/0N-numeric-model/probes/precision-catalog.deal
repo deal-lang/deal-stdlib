@@ -1,0 +1,80 @@
+@header {
+    path:       .planning/phases/0N-numeric-model/probes/precision-catalog.deal
+    schema:     deal/0.1
+    created:    2026-06-08T00:00:00Z by "David Dunnock"
+    status:     draft
+    marking:    Unclassified
+}
+
+package probes.precision_catalog;
+
+// ─────────────────────────────────────────────────────────────────────────
+//  N-07/N-08 acceptance probe — exercises the expanded catalog + constants.
+//
+//  CURRENT STATE (N-07/N-08 complete, N-10 NOT done):
+//    - `deal parse` on this file → exits 0 (syntactic; resolves no imports).
+//    - `deal check` in a workspace that resolves deal-std → the CORRECT block
+//      below is dimensionally valid. The E2500-PROBE lines are commented out
+//      because cross-file dimensional checking is not yet wired (see N-10);
+//      uncommenting them today is a graceful skip, NOT an error.
+//
+//  AFTER N-10 (cross-file E2500 wired into `deal check`):
+//    - Uncomment each `// E2500-PROBE` line one at a time → `deal check` must
+//      exit non-zero with `error[E2500] dimension mismatch`.
+//
+//  See probes/README.md for run instructions.
+// ─────────────────────────────────────────────────────────────────────────
+
+import deal.std.units.{Pressure, Frequency, Capacitance, Volume, Area, Power,
+                       Voltage, Current, Angle, Dimensionless, Speed, Acceleration};
+import deal.std.units.{kPa, MPa, MHz, uF, L, m2, V, A, kW, deg, percent};
+import deal.std.units.{psi, to_Pa, gal_us, to_m3};
+import deal.std.constants.{c, g_0};
+
+// ── Correct usage — must `deal check` clean (post-N-10 baseline) ───────────
+
+part def CatalogProbe {
+    public (
+        // New N-07 derived quantities with their constructors
+        attribute railPressure   : Pressure    [1] = kPa(101);
+        attribute clampPressure  : Pressure    [1] = MPa(12);
+        attribute clockRate      : Frequency   [1] = MHz(50);
+        attribute filterCap      : Capacitance [1] = uF(4.7);
+        attribute tankVolume     : Volume      [1] = L(60);
+        attribute panelArea      : Area        [1] = m2(2);
+        attribute steerAngle     : Angle       [1] = deg(30);
+        attribute soc            : Dimensionless [1] = percent(80);
+
+        // Electrical (baseline units) for a same-dimension derived attribute
+        attribute busVoltage     : Voltage [1] = V(800);
+        attribute loadCurrent    : Current [1] = A(250);
+        // Voltage * Current = Power — resolves via vector addition (existing algebra)
+        derived attribute drawPower : Power = busVoltage * loadCurrent;
+
+        // Explicit conversions (D-57) across new domains
+        attribute pressureSI : Pressure = to_Pa(psi(100));
+        attribute volumeSI   : Volume   = to_m3(gal_us(50));
+
+        // CODATA constants via the call form (c(1) yields the constant value)
+        attribute lightSpeed : Speed        [1] = c(1);
+        attribute gravity    : Acceleration [1] = g_0(1);
+    )
+}
+
+// ── E2500 PROBES — uncomment AFTER N-10 to confirm mismatch detection ──────
+//
+//  Each line assigns a value whose dimension does NOT match the declared type.
+//  Expected post-N-10: `error[E2500] dimension mismatch`.
+//
+// part def MismatchProbe {
+//     public (
+//         // E2500-PROBE 1: Frequency value into a Pressure attribute
+//         attribute bad1 : Pressure = MHz(10);
+//
+//         // E2500-PROBE 2: Volume value into an Area attribute
+//         attribute bad2 : Area = L(5);
+//
+//         // E2500-PROBE 3: Capacitance value into a Voltage attribute
+//         attribute bad3 : Voltage = uF(1);
+//     )
+// }

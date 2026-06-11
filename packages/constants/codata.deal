@@ -1,0 +1,163 @@
+@header {
+    path:       packages/constants/codata.deal
+    schema:     deal/0.1
+    created:    2026-06-08T00:00:00Z by "David Dunnock"
+    modified:   2026-06-08T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+// ─────────────────────────────────────────────────────────────────────────
+//  Physical constant values: NIST CODATA 2022 (public domain).
+//  Dimension vector concept derives from uom-rs (Apache-2.0 / MIT) and the
+//  Modelica Standard Library (BSD 3-Clause). See deal-stdlib/NOTICE.md.
+// ─────────────────────────────────────────────────────────────────────────
+package deal.std.constants;
+
+import deal.std.units.{Speed, Action, HeatCapacity, Charge, Mass,
+                       Acceleration, Permittivity, Permeability};
+
+// Fundamental physical constants — CODATA 2022 recommended values.
+//
+// ENCODING: each constant is a unit-style def whose si_factor holds the constant's
+// SI value. Use the CALL form to obtain the value, exactly like a unit literal:
+//
+//     import deal.std.constants.{c, k_B};
+//     attribute lightSpeed : Speed = c(1);        // = 2.99792458e8 m/s
+//     attribute thermalE    : Energy = k_B(1);    // k_B in J/K, * temperature elsewhere
+//
+//   c(1) → the constant;  c(2) → 2× the constant.  This mirrors kg(1500) and is the
+//   parse-safe form under the locked grammar. Bare-value constant syntax is a future
+//   enhancement (depends on Lane A N-01).
+//
+// PRECISION: SI-defined constants are exact (2019 redefinition). Measured constants
+// carry a `// precision:` note with CODATA 2022 relative standard uncertainty; upgrade
+// these to `± e-N` annotations once Lane A N-01 ships.
+//
+// Source: NIST CODATA 2022 (https://physics.nist.gov/cuu/Constants/), verified
+// 2026-06-08. Re-check last digits against NIST before any release tag.
+
+// ── Constant-support dimensions (niche; kept local to this package) ────────
+
+/** PerAmount — N^-1. Supports Avogadro constant (1/mol). */
+attribute def PerAmount {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = 0;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = -1;
+    attribute si_J  : Integer = 0;
+}
+
+/** GravConstantDim — M^-1*L^3*T^-2. Supports Newtonian G (m^3/(kg*s^2)). */
+attribute def GravConstantDim {
+    attribute si_M  : Integer = -1;
+    attribute si_L  : Integer = 3;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** MolarGasDim — M*L^2*T^-2*Theta^-1*N^-1. Supports gas constant R (J/(mol*K)). */
+attribute def MolarGasDim {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = -1;
+    attribute si_N  : Integer = -1;
+    attribute si_J  : Integer = 0;
+}
+
+/** StefanBoltzmannDim — M*T^-3*Theta^-4. Supports sigma (W/(m^2*K^4)). */
+attribute def StefanBoltzmannDim {
+    attribute si_M  : Integer = 1;
+    attribute si_L  : Integer = 0;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = -4;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+// ── Defined (exact) constants — SI 2019 redefinition ──────────────────────
+
+/** c — speed of light in vacuum. 299792458 m/s (exact). */
+attribute def c <<specializes>> Speed {
+    attribute si_factor : Real = 299792458.0;
+}
+
+/** h — Planck constant. 6.62607015e-34 J*s (exact). */
+attribute def h <<specializes>> Action {
+    attribute si_factor : Real = 6.62607015e-34;
+}
+
+/** hbar — reduced Planck constant (h/2*pi). 1.054571817e-34 J*s. */
+attribute def hbar <<specializes>> Action {
+    attribute si_factor : Real = 1.054571817e-34;
+}
+
+/** k_B — Boltzmann constant. 1.380649e-23 J/K (exact). */
+attribute def k_B <<specializes>> HeatCapacity {
+    attribute si_factor : Real = 1.380649e-23;
+}
+
+/** N_A — Avogadro constant. 6.02214076e23 /mol (exact). */
+attribute def N_A <<specializes>> PerAmount {
+    attribute si_factor : Real = 6.02214076e23;
+}
+
+/** q_e — elementary charge. 1.602176634e-19 C (exact). */
+attribute def q_e <<specializes>> Charge {
+    attribute si_factor : Real = 1.602176634e-19;
+}
+
+/** g_0 — standard acceleration of gravity. 9.80665 m/s^2 (exact). */
+attribute def g_0 <<specializes>> Acceleration {
+    attribute si_factor : Real = 9.80665;
+}
+
+/** R — molar gas constant (N_A * k_B). 8.314462618 J/(mol*K) (exact). */
+attribute def R <<specializes>> MolarGasDim {
+    attribute si_factor : Real = 8.314462618;
+}
+
+/** sigma — Stefan-Boltzmann constant. 5.670374419e-8 W/(m^2*K^4) (exact, derived). */
+attribute def sigma <<specializes>> StefanBoltzmannDim {
+    attribute si_factor : Real = 5.670374419e-8;
+}
+
+// ── Measured constants — CODATA 2022 (carry stated uncertainty) ───────────
+
+/** m_e — electron mass. 9.1093837139e-31 kg.
+ *  precision: ± 3.1e-10 relative (CODATA 2022). */
+attribute def m_e <<specializes>> Mass {
+    attribute si_factor : Real = 9.1093837139e-31;
+}
+
+/** m_p — proton mass. 1.67262192595e-27 kg.
+ *  precision: ± 3.1e-10 relative (CODATA 2022). */
+attribute def m_p <<specializes>> Mass {
+    attribute si_factor : Real = 1.67262192595e-27;
+}
+
+/** G — Newtonian constant of gravitation. 6.67430e-11 m^3/(kg*s^2).
+ *  precision: ± 2.2e-5 relative (CODATA 2022 — least-certain fundamental constant). */
+attribute def G <<specializes>> GravConstantDim {
+    attribute si_factor : Real = 6.67430e-11;
+}
+
+/** eps_0 — vacuum electric permittivity. 8.8541878188e-12 F/m.
+ *  precision: ± 1.6e-10 relative (CODATA 2022). */
+attribute def eps_0 <<specializes>> Permittivity {
+    attribute si_factor : Real = 8.8541878188e-12;
+}
+
+/** mu_0 — vacuum magnetic permeability. 1.25663706127e-6 N/A^2 (H/m).
+ *  precision: ± 1.6e-10 relative (CODATA 2022). */
+attribute def mu_0 <<specializes>> Permeability {
+    attribute si_factor : Real = 1.25663706127e-6;
+}
