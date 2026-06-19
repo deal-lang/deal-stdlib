@@ -26,7 +26,8 @@ export dimensions.{Area, Volume, Acceleration, AngularVelocity, AngularAccelerat
                    ThermalConductivity, HeatFlux, Capacitance, Conductance, MagneticFlux,
                    MagneticFluxDensity, Inductance, ElectricFieldStrength, Permittivity,
                    Permeability, LuminousFlux, Illuminance, MolarMass, MolarConcentration,
-                   CatalyticActivity, AbsorbedDose, DoseEquivalent, Radioactivity};
+                   CatalyticActivity, AbsorbedDose, DoseEquivalent, Radioactivity,
+                   Velocity, SpecificEnergy, SpecificPower, VolumeFlowRate};
 
 // Dimensionless quantities + units
 export dimensionless.{Dimensionless, Angle, SolidAngle, Strain, percent, rad, deg, sr};

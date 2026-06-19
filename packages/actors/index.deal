@@ -1,0 +1,31 @@
+@header {
+    path:       packages/actors/index.deal
+    schema:     deal/0.1
+    created:    2026-06-19T00:00:00Z by "David Dunnock"
+    modified:   2026-06-19T00:00:00Z by "David Dunnock"
+    hash:       sha256:pending
+    status:     baseline
+    marking:    Unclassified
+}
+package deal.std.actors;
+
+// Base actor types for use-case modeling. Previously implicit DEAL prelude
+// names; relocated to the standard library under ADR-0004 (prelude = primitives
+// only). Import explicitly, e.g. `import deal.std.actors.{Person, ExternalSystem};`,
+// and specialize for a concrete role: `actor def MissionOperator : Person { ... }`.
+//
+// These are a flat single package: each `actor def` below is a top-level
+// declaration of `deal.std.actors`, so it is part of the package's public
+// surface directly (no barrel re-export needed).
+
+/** A human participant interacting with the system (operator, user, etc.). */
+actor def Person { }
+
+/** An organizational participant (company, agency, team) external to the system. */
+actor def Organization { }
+
+/** A system participant — an engineered system acting as an actor in context. */
+actor def System { }
+
+/** A system outside the modeled boundary that the system-of-interest interacts with. */
+actor def ExternalSystem { }

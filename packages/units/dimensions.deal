@@ -659,3 +659,49 @@ attribute def Radioactivity {
     attribute si_N  : Integer = 0;
     attribute si_J  : Integer = 0;
 }
+
+/** Velocity — L*T^-1. Vector quantity counterpart of Speed (same SI vector).
+ *  @same_vector_note: distinct-from Speed — Lane A enforcement (N-00 ③). */
+attribute def Velocity {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 1;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** SpecificEnergy — L^2*T^-2 (energy per unit mass). SI unit: J/kg.
+ *  @same_vector_note: distinct-from AbsorbedDose, DoseEquivalent — Lane A enforcement (N-00 ③). */
+attribute def SpecificEnergy {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -2;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** SpecificPower — L^2*T^-3 (power per unit mass). SI unit: W/kg. */
+attribute def SpecificPower {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 2;
+    attribute si_T  : Integer = -3;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
+
+/** VolumeFlowRate — L^3*T^-1 (volume per unit time). SI unit: m^3/s. */
+attribute def VolumeFlowRate {
+    attribute si_M  : Integer = 0;
+    attribute si_L  : Integer = 3;
+    attribute si_T  : Integer = -1;
+    attribute si_I  : Integer = 0;
+    attribute si_TH : Integer = 0;
+    attribute si_N  : Integer = 0;
+    attribute si_J  : Integer = 0;
+}
